@@ -2,6 +2,7 @@ import json
 import math
 import random
 import typing
+from abc import ABC, abstractmethod
 from typing import Tuple
 
 from src.Connection import Connection
@@ -12,7 +13,7 @@ class StorageException(Exception):
     pass
 
 
-class StorageProvider:
+class StorageProvider(ABC):
     def __init__(self):
         self.neighbour_directions = {
             Direction.North: (0, -1),
@@ -25,18 +26,23 @@ class StorageProvider:
             Direction.SW: (-1, 1)
         }
 
+    @abstractmethod
     def get_locations(self):
         pass
 
+    @abstractmethod
     def get_connections(self):
         pass
 
+    @abstractmethod
     def get_pos_neighbours(self, pos: Tuple[int, int]):
         pass
 
+    @abstractmethod
     def get_location_at_pos(self, pos: Tuple[int, int]):
         pass
 
+    @abstractmethod
     def get_heuristic_distance_to_locations(self, current):
         pass
 
@@ -80,6 +86,12 @@ class JsonStorageProvider(StorageProvider):
                         raise StorageException("No such location '{}'".format(connection_location))
                     connection.add_location(self.locations[connection_location])
                 self.connections.append(connection)
+
+    def get_locations(self):
+        return self.locations_list
+
+    def get_connections(self):
+        return self.connections
 
     def get_pos_neighbours(self, pos: Tuple[int, int]) -> [Neighbour]:
         neighbours = []

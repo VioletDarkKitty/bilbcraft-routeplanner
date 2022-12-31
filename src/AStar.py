@@ -14,7 +14,7 @@ class AStarPosition:
 class AStar:
     def __init__(self, storage: StorageProvider):
         self.storage = storage
-        self.heuristic_distance_threshold = 2000
+        self.heuristic_distance_threshold = 300
 
     def get_path_to(self, start_pos: Position, end_pos: Position):
         node_heap = []

@@ -15,11 +15,12 @@ class RouteConnectionChanges(Enum):
 
 class RoutePath:
     def __init__(self, from_position: AStarPosition, to_position: AStarPosition,
-                 route_change: typing.Optional[RouteConnectionChanges], storage: StorageProvider):
+                 route_change: typing.Optional[RouteConnectionChanges], storage: StorageProvider, stops: []):
         self.from_position = from_position
         self.to_position = to_position
         self.route_change = route_change
         self.storage = storage
+        self.train_ride_stops = stops
 
     def write_route_text(self) -> str:
         from_location = self.storage.get_location_at_pos(self.from_position.pos)
@@ -37,12 +38,15 @@ class RoutePath:
         elif self.route_change == RouteConnectionChanges.LeaveTrain:
             return "Leave the train at {}".format(to_text)
         elif self.route_change == RouteConnectionChanges.ChangeTrain:
-            return "Change trains"
+            return "Change trains at {} for the {}".format(to_text, self.to_position.connection.label)
         else:
             return "Walk {} blocks from {} to {}".format(
                 AStar.distance_between_points(self.from_position.pos, self.to_position.pos),
                 from_text, to_text
             )
+
+    def get_train_ride_stops(self):
+        return self.train_ride_stops
 
 
 class RoutePlanner:
@@ -56,7 +60,8 @@ class RoutePlanner:
         route_paths = self._make_paths_from_astar_points(path)
         route = Route()
         for path in route_paths:
-            route.add_entry(RouteEntry(path.write_route_text()))
+            route.add_entry(RouteEntry(path.write_route_text(), path.from_position.pos, path.to_position.pos,
+                                       path.get_train_ride_stops()))
 
         return route
 
@@ -65,6 +70,7 @@ class RoutePlanner:
 
         current = None
         on_train = False
+        train_riding_stops = []  # which stops do we go passed on the train, for plotting maps
         for position in path:
             if current is None:
                 current = position
@@ -74,34 +80,39 @@ class RoutePlanner:
                     if not on_train:
                         if current != position:
                             # walk to the station
-                            route_path.append(RoutePath(current, position, None, self.storage))
+                            route_path.append(RoutePath(current, position, None, self.storage, train_riding_stops))
                         # board train
                         route_path.append(RoutePath(position, position, RouteConnectionChanges.BoardTrain,
-                                                    self.storage))
+                                                    self.storage, train_riding_stops))
                         on_train = True
                         current = position
+                        train_riding_stops = []
                     else:
                         if position.connection.label != current.connection.label:
                             # change trains
                             route_path.append(RoutePath(current, position, RouteConnectionChanges.ChangeTrain,
-                                                        self.storage))
+                                                        self.storage, train_riding_stops))
                             on_train = True
                             current = position
+                            train_riding_stops = []
+                        else:
+                            train_riding_stops.append(position)
                 else:
                     pass
             else:
                 if current.connection is not None:
                     if current.connection.is_train:
                         # leave train
-                        route_path.append(RoutePath(position, position, RouteConnectionChanges.LeaveTrain,
-                                                    self.storage))
+                        route_path.append(RoutePath(position, position, RouteConnectionChanges.LeaveTrain, self.storage,
+                                                    train_riding_stops))
                         on_train = False
                         current = position
+                        train_riding_stops = []
                 else:
                     pass
 
         if len(path) > 0:
             if current is not None and current.pos != path[-1].pos:
-                route_path.append(RoutePath(current, path[-1], None, self.storage))
+                route_path.append(RoutePath(current, path[-1], None, self.storage, train_riding_stops))
 
         return route_path

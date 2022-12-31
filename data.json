@@ -17,6 +17,18 @@
       "label": "Bboy Hotel",
       "x": 96,
       "y": -129
+    },
+    {
+      "id": "metro-mall",
+      "label": "Metropolitan Mall",
+      "x": -436,
+      "y": -444
+    },
+    {
+      "id": "derby-upon-tyne",
+      "label": "Derby-upon-Tyne",
+      "x": -886,
+      "y": -470
     }
   ],
   "connections": [
@@ -37,6 +49,24 @@
       "weight": 0,
       "is_train": true,
       "label": "Yellow Line"
+    },
+    {
+      "locations": [
+        "central-station",
+        "metro-mall"
+      ],
+      "weight": 0,
+      "is_train": true,
+      "label": "Bboy Line"
+    },
+    {
+      "locations": [
+        "derby-upon-tyne",
+        "metro-mall"
+      ],
+      "weight": 0,
+      "is_train": true,
+      "label": "Bboy Line"
     }
   ]
 }
