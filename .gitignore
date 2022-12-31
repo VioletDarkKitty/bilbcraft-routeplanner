@@ -1,0 +1,8 @@
+.idea/*
+*.pyc
+src/__pycache__/*
+main.build/*
+main.out
+main.dist/*
+*.dat.gz
+pycallgraph.png

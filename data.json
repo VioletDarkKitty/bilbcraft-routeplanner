@@ -1,0 +1,42 @@
+{
+  "locations": [
+    {
+      "id": "central-station",
+      "label": "Central Station",
+      "x": -125,
+      "y": -227
+    },
+    {
+      "id": "tub-train-station",
+      "label": "Tub Train Station",
+      "x": 398,
+      "y": -412
+    },
+    {
+      "id": "bboy-hotel",
+      "label": "Bboy Hotel",
+      "x": 96,
+      "y": -129
+    }
+  ],
+  "connections": [
+    {
+      "locations": [
+        "central-station",
+        "tub-train-station"
+      ],
+      "weight": 0,
+      "is_train": true,
+      "label": "EWML"
+    },
+    {
+      "locations": [
+        "central-station",
+        "bboy-hotel"
+      ],
+      "weight": 0,
+      "is_train": true,
+      "label": "Yellow Line"
+    }
+  ]
+}
