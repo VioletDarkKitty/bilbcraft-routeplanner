@@ -33,12 +33,15 @@ class RoutePath:
         if to_location is not None:
             to_text = "{} ({})".format(to_text, to_location.get_label())
 
+        num_stops = len(self.train_ride_stops) + 1
+        num_stops_text = "({} stop{})".format(num_stops, "" if num_stops == 1 else "s")
+
         if self.route_change == RouteConnectionChanges.BoardTrain:
             return "Board the {}".format(self.to_position.connection.label)
         elif self.route_change == RouteConnectionChanges.LeaveTrain:
-            return "Leave the train at {}".format(to_text)
+            return "Leave the train at {} {}".format(to_text, num_stops_text)
         elif self.route_change == RouteConnectionChanges.ChangeTrain:
-            return "Change trains at {} for the {}".format(to_text, self.to_position.connection.label)
+            return "Change trains at {} {} for the {}".format(to_text, num_stops_text, self.to_position.connection.label)
         else:
             return "Walk {} blocks from {} to {}".format(
                 AStar.distance_between_points(self.from_position.pos, self.to_position.pos),
@@ -103,7 +106,7 @@ class RoutePlanner:
                 if current.connection is not None:
                     if current.connection.is_train:
                         # leave train
-                        route_path.append(RoutePath(position, position, RouteConnectionChanges.LeaveTrain, self.storage,
+                        route_path.append(RoutePath(current, position, RouteConnectionChanges.LeaveTrain, self.storage,
                                                     train_riding_stops))
                         on_train = False
                         current = position

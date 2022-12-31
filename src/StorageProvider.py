@@ -3,14 +3,20 @@ import math
 import random
 import typing
 from abc import ABC, abstractmethod
+from enum import Enum
 from typing import Tuple
 
 from src.Connection import Connection
 from src.Direction import Direction
+from src.Location import Location
 
 
 class StorageException(Exception):
     pass
+
+
+class StorageProviderTypes(Enum):
+    JsonStorage = "json"
 
 
 class StorageProvider(ABC):
@@ -26,12 +32,42 @@ class StorageProvider(ABC):
             Direction.SW: (-1, 1)
         }
 
+    @staticmethod
+    def create(provider_type, data):
+        provider_types = {
+            StorageProviderTypes.JsonStorage: JsonStorageProvider
+        }
+        if provider_type in provider_types:
+            return provider_types[provider_type](**data)
+        else:
+            raise StorageException("Unknown storage type {}".format(provider_type))
+
+    @abstractmethod
+    def save(self):
+        pass
+
     @abstractmethod
     def get_locations(self):
         pass
 
     @abstractmethod
+    def add_location(self, location: Location):
+        pass
+
+    @abstractmethod
+    def delete_location(self, location: Location):
+        pass
+
+    @abstractmethod
     def get_connections(self):
+        pass
+
+    @abstractmethod
+    def add_connection(self, connection: Connection):
+        pass
+
+    @abstractmethod
+    def delete_connection(self, connection: Connection):
         pass
 
     @abstractmethod
@@ -43,7 +79,19 @@ class StorageProvider(ABC):
         pass
 
     @abstractmethod
+    def get_location_by_id(self, location_id):
+        pass
+
+    @abstractmethod
     def get_heuristic_distance_to_locations(self, current):
+        pass
+
+    @staticmethod
+    def _is_within_world(_):
+        return True
+
+    @abstractmethod
+    def update_location(self, location):
         pass
 
 
@@ -57,7 +105,8 @@ class Neighbour:
 class JsonStorageProvider(StorageProvider):
     def __init__(self, path):
         super().__init__()
-        self.locations = {}
+        self.path = path
+        self.locations_by_id = {}
         self.locations_by_position = {}
         self.locations_list = []
         self.connections = []
@@ -72,7 +121,7 @@ class JsonStorageProvider(StorageProvider):
                     self._check_keys(key, location_data)
                 from src.Location import Location
                 location = Location(location_data["id"], location_data["label"], location_data["x"], location_data["y"])
-                self.locations[location.get_id()] = location
+                self.locations_by_id[location.get_id()] = location
                 self.locations_by_position[location.get_pos()] = location
                 self.locations_list.append(location)
 
@@ -82,10 +131,38 @@ class JsonStorageProvider(StorageProvider):
                 connection = Connection(connection_data["weight"], connection_data["is_train"],
                                         connection_data["label"])
                 for connection_location in connection_data["locations"]:
-                    if connection_location not in self.locations.keys():
+                    if connection_location not in self.locations_by_id.keys():
                         raise StorageException("No such location '{}'".format(connection_location))
-                    connection.add_location(self.locations[connection_location])
+                    connection.add_location(self.locations_by_id[connection_location])
                 self.connections.append(connection)
+
+    def save(self):
+        data = {
+            "locations": [],
+            "connections": []
+        }
+
+        for location in self.get_locations():
+            x, y = location.get_pos()
+            location_data = {
+                "id": location.get_id(),
+                "label": location.get_label(),
+                "x": x,
+                "y": y
+            }
+            data["locations"].append(location_data)
+
+        for connection in self.get_connections():
+            connection_data = {
+                "locations": [x.get_id() for x in connection.get_locations()],
+                "weight": connection.get_weight(),
+                "is_train": connection.get_is_train(),
+                "label": connection.get_label()
+            }
+            data["connections"].append(connection_data)
+
+        with open(self.path, "w") as f:
+            json.dump(data, f, indent=4)
 
     def get_locations(self):
         return self.locations_list
@@ -116,6 +193,11 @@ class JsonStorageProvider(StorageProvider):
     def get_location_at_pos(self, pos: Tuple[int, int]):
         if pos in self.locations_by_position.keys():
             return self.locations_by_position[pos]
+        return None
+
+    def get_location_by_id(self, location_id):
+        if location_id in self.locations_by_id.keys():
+            return self.locations_by_id[location_id]
         return None
 
     def get_heuristic_distance_to_locations(self, pos: Tuple[int, int]) -> typing.Optional[int]:
@@ -150,6 +232,32 @@ class JsonStorageProvider(StorageProvider):
         if key not in data.keys():
             raise StorageException("Key '{}' missing in json data".format(key))
 
-    @staticmethod
-    def _is_within_world(_):
-        return True
+    def add_location(self, location: Location):
+        self.locations_by_id[location.get_id()] = location
+        self.locations_by_position[location.get_pos()] = location
+        self.locations_list.append(location)
+
+    def delete_location(self, location: Location):
+        del self.locations_by_id[location.get_id()]
+        del self.locations_by_position[location.get_pos()]
+        self.locations_list.remove(location)
+        for connection in location.get_connections():
+            self.delete_connection(connection)
+
+    def add_connection(self, connection: Connection):
+        self.connections.append(connection)
+
+    def delete_connection(self, connection: Connection):
+        self.connections.remove(connection)
+        for location in connection.get_locations():
+            location.remove_connection(connection)
+
+    def update_location(self, location):
+        if location.get_prev_id() is not None:
+            del self.locations_by_id[location.get_prev_id()]
+            location.clear_prev_id()
+        if location.get_prev_pos() is not None:
+            del self.locations_by_position[location.get_prev_pos()]
+            location.clear_prev_pos()
+        self.locations_by_id[location.get_id()] = location
+        self.locations_by_position[location.get_pos()] = location

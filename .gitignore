@@ -6,3 +6,5 @@ main.out
 main.dist/*
 *.dat.gz
 pycallgraph.png
+/output.png
+/venv/

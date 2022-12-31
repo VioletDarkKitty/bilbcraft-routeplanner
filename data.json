@@ -1,72 +1,138 @@
 {
-  "locations": [
-    {
-      "id": "central-station",
-      "label": "Central Station",
-      "x": -125,
-      "y": -227
-    },
-    {
-      "id": "tub-train-station",
-      "label": "Tub Train Station",
-      "x": 398,
-      "y": -412
-    },
-    {
-      "id": "bboy-hotel",
-      "label": "Bboy Hotel",
-      "x": 96,
-      "y": -129
-    },
-    {
-      "id": "metro-mall",
-      "label": "Metropolitan Mall",
-      "x": -436,
-      "y": -444
-    },
-    {
-      "id": "derby-upon-tyne",
-      "label": "Derby-upon-Tyne",
-      "x": -886,
-      "y": -470
-    }
-  ],
-  "connections": [
-    {
-      "locations": [
-        "central-station",
-        "tub-train-station"
-      ],
-      "weight": 0,
-      "is_train": true,
-      "label": "EWML"
-    },
-    {
-      "locations": [
-        "central-station",
-        "bboy-hotel"
-      ],
-      "weight": 0,
-      "is_train": true,
-      "label": "Yellow Line"
-    },
-    {
-      "locations": [
-        "central-station",
-        "metro-mall"
-      ],
-      "weight": 0,
-      "is_train": true,
-      "label": "Bboy Line"
-    },
-    {
-      "locations": [
-        "derby-upon-tyne",
-        "metro-mall"
-      ],
-      "weight": 0,
-      "is_train": true,
-      "label": "Bboy Line"
-    }
-  ]
+    "locations": [
+        {
+            "id": "central-station",
+            "label": "Central Station",
+            "x": -125,
+            "y": -227
+        },
+        {
+            "id": "central-station-subway",
+            "label": "Central Station Subway",
+            "x": -94,
+            "y": -223
+        },
+        {
+            "id": "tub-train-station",
+            "label": "Tub Train Station",
+            "x": 398,
+            "y": -412
+        },
+        {
+            "id": "bboy-hotel",
+            "label": "Bboy Hotel",
+            "x": 96,
+            "y": -129
+        },
+        {
+            "id": "metro-mall",
+            "label": "Metropolitan Mall",
+            "x": -436,
+            "y": -444
+        },
+        {
+            "id": "derby-upon-tyne",
+            "label": "Derby-upon-Tyne",
+            "x": -886,
+            "y": -470
+        },
+        {
+            "id": "spawn-marina",
+            "label": "Spawn Marina",
+            "x": 150,
+            "y": -223
+        },
+        {
+            "id": "east-plains",
+            "label": "East Plains",
+            "x": 778,
+            "y": -417
+        },
+        {
+            "id": "foothills-station",
+            "label": "Foothills Stationa",
+            "x": 1600,
+            "y": -413
+        },
+        {
+            "id": "ryjb4",
+            "label": "ryjb4",
+            "x": 0,
+            "y": 0
+        }
+    ],
+    "connections": [
+        {
+            "locations": [
+                "central-station",
+                "tub-train-station"
+            ],
+            "weight": 0,
+            "is_train": true,
+            "label": "EWML"
+        },
+        {
+            "locations": [
+                "central-station",
+                "bboy-hotel"
+            ],
+            "weight": 0,
+            "is_train": true,
+            "label": "Yellow Line"
+        },
+        {
+            "locations": [
+                "central-station",
+                "metro-mall"
+            ],
+            "weight": 0,
+            "is_train": true,
+            "label": "Bboy Line"
+        },
+        {
+            "locations": [
+                "derby-upon-tyne",
+                "metro-mall"
+            ],
+            "weight": 0,
+            "is_train": true,
+            "label": "Bboy Line"
+        },
+        {
+            "locations": [
+                "spawn-marina",
+                "central-station-subway"
+            ],
+            "weight": 0,
+            "is_train": true,
+            "label": "Purple Subway"
+        },
+        {
+            "locations": [
+                "central-station-subway",
+                "central-station"
+            ],
+            "weight": 0,
+            "is_train": false,
+            "label": "Central Station"
+        },
+        {
+            "locations": [
+                "tub-train-station",
+                "east-plains"
+            ],
+            "weight": 0,
+            "is_train": true,
+            "label": "EWML"
+        },
+        {
+            "locations": [
+                "east-plains",
+                "foothills-station"
+            ],
+            "weight": 0,
+            "is_train": true,
+            "label": "EWML"
+        }
+    ]
 }
