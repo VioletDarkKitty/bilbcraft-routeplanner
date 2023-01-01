@@ -91,7 +91,6 @@
     </property>
     <addaction name="actionAddLocation"/>
     <addaction name="actionAddConnection"/>
-    <addaction name="actionDelete"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">

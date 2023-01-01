@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'mainwindownhVneN.ui'
+## Form generated from reading UI file 'mainwindowPppOWq.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.2.4
 ##
@@ -93,7 +93,6 @@ class Ui_MainWindow(object):
         self.menuFile.addAction(self.actionQuit)
         self.menuEdit.addAction(self.actionAddLocation)
         self.menuEdit.addAction(self.actionAddConnection)
-        self.menuEdit.addAction(self.actionDelete)
         self.menuHelp.addAction(self.actionAbout)
 
         self.retranslateUi(MainWindow)

@@ -94,6 +94,10 @@ class StorageProvider(ABC):
     def update_location(self, location):
         pass
 
+    @abstractmethod
+    def update_connection(self, connection):
+        pass
+
 
 class Neighbour:
     def __init__(self, direction, pos: Tuple[int, int], connection):
@@ -261,3 +265,6 @@ class JsonStorageProvider(StorageProvider):
             location.clear_prev_pos()
         self.locations_by_id[location.get_id()] = location
         self.locations_by_position[location.get_pos()] = location
+
+    def update_connection(self, connection):
+        pass

@@ -27,3 +27,18 @@ class Connection:
                 continue
             return loc
         return None
+
+    def set_weight(self, weight):
+        self.weight = weight
+
+    def set_is_train(self, is_train):
+        self.is_train = is_train
+        for location in self.connecting_locations:
+            location.update_is_station()
+
+    def set_label(self, label):
+        self.label = label
+
+    def remove_location(self, old_location):
+        self.connecting_locations.remove(old_location)
+        old_location.remove_connection(self)

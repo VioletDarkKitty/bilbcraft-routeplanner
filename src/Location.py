@@ -58,6 +58,9 @@ class Location(Position):
     def remove_connection(self, connection: Connection):
         self.connections.remove(connection)
         self.is_station = False
+        self.update_is_station()
+
+    def update_is_station(self):
         for connection in self.connections:
             if connection.is_train:
                 self.is_station = True

@@ -50,15 +50,327 @@
         },
         {
             "id": "foothills-station",
-            "label": "Foothills Stationa",
+            "label": "Foothills Station",
             "x": 1600,
             "y": -413
         },
         {
-            "id": "ryjb4",
-            "label": "ryjb4",
-            "x": 0,
+            "id": "gentoo",
+            "label": "Gentoo",
+            "x": 2120,
+            "y": -62
+        },
+        {
+            "id": "jaguar",
+            "label": "Jaguar",
+            "x": 1944,
+            "y": -70
+        },
+        {
+            "id": "fairy",
+            "label": "Fairy",
+            "x": 1670,
+            "y": -26
+        },
+        {
+            "id": "cosan",
+            "label": "Cos\u00e1n",
+            "x": 1070,
+            "y": 122
+        },
+        {
+            "id": "dinbych",
+            "label": "Dinbych",
+            "x": 826,
+            "y": 128
+        },
+        {
+            "id": "spruceheart",
+            "label": "Spruceheart",
+            "x": 354,
+            "y": 112
+        },
+        {
+            "id": "powder-mill",
+            "label": "Powder Mill",
+            "x": 504,
+            "y": -122
+        },
+        {
+            "id": "tub-mountain-south",
+            "label": "Tub Mountain (South Entrance)",
+            "x": 382,
+            "y": -310
+        },
+        {
+            "id": "ukraine",
+            "label": "Ukraine",
+            "x": -115,
+            "y": 149
+        },
+        {
+            "id": "stoneworks",
+            "label": "StoneWorks",
+            "x": 44,
             "y": 0
+        },
+        {
+            "id": "ancoats",
+            "label": "Ancoats",
+            "x": -46,
+            "y": -112
+        },
+        {
+            "id": "mug-mug-lane",
+            "label": "Mug Mug Lane",
+            "x": 16,
+            "y": -330
+        },
+        {
+            "id": "spruce-valley-farm",
+            "label": "Spruce Valley Farm",
+            "x": 318,
+            "y": -80
+        },
+        {
+            "id": "penguin-park",
+            "label": "Penguin Park",
+            "x": -64,
+            "y": -408
+        },
+        {
+            "id": "north-approach",
+            "label": "North Approach",
+            "x": -84,
+            "y": -628
+        },
+        {
+            "id": "swamp-north",
+            "label": "Swamp North Train Station",
+            "x": -110,
+            "y": -1324
+        },
+        {
+            "id": "lagoon-wood-train-statioin",
+            "label": "Lagoon Wood Train Station",
+            "x": -126,
+            "y": -2690
+        },
+        {
+            "id": "kippenberg",
+            "label": "Kippenberg Train Station",
+            "x": -108,
+            "y": -3830
+        },
+        {
+            "id": "linton",
+            "label": "Linton Train Station",
+            "x": -114,
+            "y": -4758
+        },
+        {
+            "id": "altnabreac",
+            "label": "Altnabreac Train Station",
+            "x": -110,
+            "y": -5538
+        },
+        {
+            "id": "imperium",
+            "label": "Imperium (International) Train Station",
+            "x": -114,
+            "y": -8062
+        },
+        {
+            "id": "rapture",
+            "label": "Rapture Interchange Train Station",
+            "x": -114,
+            "y": -10964
+        },
+        {
+            "id": "south-forest",
+            "label": "South Forest",
+            "x": -120,
+            "y": 816
+        },
+        {
+            "id": "highland-north",
+            "label": "Highland North",
+            "x": -128,
+            "y": 1832
+        },
+        {
+            "id": "grumblers-grove",
+            "label": "Grumblers Grove",
+            "x": 612,
+            "y": 796
+        },
+        {
+            "id": "froggathorpe",
+            "label": "Froggathorpe Junction",
+            "x": 1324,
+            "y": 828
+        },
+        {
+            "id": "gribthorpe",
+            "label": "Gribthorpe",
+            "x": 1852,
+            "y": 808
+        },
+        {
+            "id": "locke",
+            "label": "Locke",
+            "x": 2328,
+            "y": 688
+        },
+        {
+            "id": "cresmont-hills",
+            "label": "Cresmont Hills",
+            "x": 2224,
+            "y": 312
+        },
+        {
+            "id": "midlands",
+            "label": "Midlands",
+            "x": 6740,
+            "y": -68
+        },
+        {
+            "id": "luzern",
+            "label": "Luzern",
+            "x": 9068,
+            "y": -52
+        },
+        {
+            "id": "pridehaven",
+            "label": "Pridehaven Central",
+            "x": 12272,
+            "y": -80
+        },
+        {
+            "id": "spawn",
+            "label": "Spawn",
+            "x": 86,
+            "y": -220
+        },
+        {
+            "id": "central-boardwalk-road",
+            "label": "Boardwalk Road",
+            "x": 90,
+            "y": -199
+        },
+        {
+            "id": "central-rise-row",
+            "label": "Rise Row",
+            "x": 100,
+            "y": -188
+        },
+        {
+            "id": "central-hotel-way",
+            "label": "Hotel Way",
+            "x": 106,
+            "y": -174
+        },
+        {
+            "id": "central-hotel-path",
+            "label": "Hotel Path",
+            "x": 106,
+            "y": -161
+        },
+        {
+            "id": "pridehaven-market",
+            "label": "Market",
+            "x": 12150,
+            "y": -146
+        },
+        {
+            "id": "pridehaven-saturn",
+            "label": "Saturn",
+            "x": 12097,
+            "y": -229
+        },
+        {
+            "id": "pridehaven-jasmine-court",
+            "label": "Jasmine Court",
+            "x": 12040,
+            "y": -302
+        },
+        {
+            "id": "pridehaven-buttercup",
+            "label": "Buttercup",
+            "x": 12130,
+            "y": -373
+        },
+        {
+            "id": "pridehaven-peony",
+            "label": "Peony",
+            "x": 12235,
+            "y": -295
+        },
+        {
+            "id": "pridehaven-hq",
+            "label": "Pridehaven HQ",
+            "x": 12277,
+            "y": -185
+        },
+        {
+            "id": "pridehaven-sappho",
+            "label": "Sappho",
+            "x": 12362,
+            "y": -232
+        },
+        {
+            "id": "pridehaven-marsha",
+            "label": "Marsha P Johnson",
+            "x": 12339,
+            "y": -126
+        },
+        {
+            "id": "pridehaven-jupiter",
+            "label": "Jupiter",
+            "x": 12028,
+            "y": -123
+        },
+        {
+            "id": "pridehaven-clara",
+            "label": "Clara Schumann",
+            "x": 11997,
+            "y": 59
+        },
+        {
+            "id": "pridehaven-tami-t",
+            "label": "Tami T",
+            "x": 11955,
+            "y": 124
+        },
+        {
+            "id": "pridehaven-bilbo",
+            "label": "Big Bilbo",
+            "x": 12079,
+            "y": 8
+        },
+        {
+            "id": "pridehaven-amy-beach",
+            "label": "Amy Beach",
+            "x": 11883,
+            "y": -37
+        },
+        {
+            "id": "pridehaven-begonia",
+            "label": "Begonia",
+            "x": 11956,
+            "y": -264
+        },
+        {
+            "id": "pridehaven-siamese",
+            "label": "Siamese",
+            "x": 12192,
+            "y": 90
+        },
+        {
+            "id": "pridehaven-lynx",
+            "label": "Lynx",
+            "x": 12120,
+            "y": 179
         }
     ],
     "connections": [
@@ -74,11 +386,11 @@
         {
             "locations": [
                 "central-station",
-                "bboy-hotel"
+                "ancoats"
             ],
             "weight": 0,
             "is_train": true,
-            "label": "Yellow Line"
+            "label": "Central Line (Yellow)"
         },
         {
             "locations": [
@@ -133,6 +445,663 @@
             "weight": 0,
             "is_train": true,
             "label": "EWML"
+        },
+        {
+            "locations": [
+                "gentoo",
+                "foothills-station"
+            ],
+            "weight": 0,
+            "is_train": true,
+            "label": "EWML"
+        },
+        {
+            "locations": [
+                "jaguar",
+                "gentoo"
+            ],
+            "weight": 0,
+            "is_train": true,
+            "label": "PPNW"
+        },
+        {
+            "locations": [
+                "fairy",
+                "jaguar"
+            ],
+            "weight": 0,
+            "is_train": true,
+            "label": "PPNW"
+        },
+        {
+            "locations": [
+                "cosan",
+                "fairy"
+            ],
+            "weight": 0,
+            "is_train": true,
+            "label": "PPNW"
+        },
+        {
+            "locations": [
+                "dinbych",
+                "cosan"
+            ],
+            "weight": 0,
+            "is_train": true,
+            "label": "PPNW"
+        },
+        {
+            "locations": [
+                "spruceheart",
+                "dinbych"
+            ],
+            "weight": 0,
+            "is_train": true,
+            "label": "PPNW"
+        },
+        {
+            "locations": [
+                "powder-mill",
+                "dinbych"
+            ],
+            "weight": 0,
+            "is_train": true,
+            "label": "Pink Line"
+        },
+        {
+            "locations": [
+                "tub-mountain-south",
+                "powder-mill"
+            ],
+            "weight": 0,
+            "is_train": true,
+            "label": "Pink Line"
+        },
+        {
+            "locations": [
+                "tub-mountain-south",
+                "east-plains"
+            ],
+            "weight": 0,
+            "is_train": true,
+            "label": "Cyan Line"
+        },
+        {
+            "locations": [
+                "tub-mountain-south",
+                "bboy-hotel"
+            ],
+            "weight": 0,
+            "is_train": true,
+            "label": "Cyan Line"
+        },
+        {
+            "locations": [
+                "ukraine",
+                "spruceheart"
+            ],
+            "weight": 0,
+            "is_train": true,
+            "label": "PPNW"
+        },
+        {
+            "locations": [
+                "stoneworks",
+                "ukraine"
+            ],
+            "weight": 0,
+            "is_train": true,
+            "label": "Cyan Line"
+        },
+        {
+            "locations": [
+                "stoneworks",
+                "bboy-hotel"
+            ],
+            "weight": 0,
+            "is_train": true,
+            "label": "Cyan Line"
+        },
+        {
+            "locations": [
+                "ancoats",
+                "bboy-hotel"
+            ],
+            "weight": 0,
+            "is_train": true,
+            "label": "Central Line (Yellow)"
+        },
+        {
+            "locations": [
+                "spruce-valley-farm",
+                "bboy-hotel"
+            ],
+            "weight": 0,
+            "is_train": true,
+            "label": "Central Line (Yellow)"
+        },
+        {
+            "locations": [
+                "spruce-valley-farm",
+                "spruceheart"
+            ],
+            "weight": 0,
+            "is_train": true,
+            "label": "Central Line (Yellow)"
+        },
+        {
+            "locations": [
+                "penguin-park",
+                "central-station"
+            ],
+            "weight": 0,
+            "is_train": true,
+            "label": "NSML"
+        },
+        {
+            "locations": [
+                "north-approach",
+                "penguin-park"
+            ],
+            "weight": 0,
+            "is_train": true,
+            "label": "NSML"
+        },
+        {
+            "locations": [
+                "swamp-north",
+                "north-approach"
+            ],
+            "weight": 0,
+            "is_train": true,
+            "label": "NSML"
+        },
+        {
+            "locations": [
+                "lagoon-wood-train-statioin",
+                "swamp-north"
+            ],
+            "weight": 0,
+            "is_train": true,
+            "label": "NSML"
+        },
+        {
+            "locations": [
+                "kippenberg",
+                "lagoon-wood-train-statioin"
+            ],
+            "weight": 0,
+            "is_train": true,
+            "label": "NSML"
+        },
+        {
+            "locations": [
+                "kippenberg",
+                "linton"
+            ],
+            "weight": 0,
+            "is_train": true,
+            "label": "NSML"
+        },
+        {
+            "locations": [
+                "altnabreac",
+                "linton"
+            ],
+            "weight": 0,
+            "is_train": true,
+            "label": "NSML"
+        },
+        {
+            "locations": [
+                "imperium",
+                "altnabreac"
+            ],
+            "weight": 0,
+            "is_train": true,
+            "label": "NSML"
+        },
+        {
+            "locations": [
+                "rapture",
+                "imperium"
+            ],
+            "weight": 0,
+            "is_train": true,
+            "label": "NSML"
+        },
+        {
+            "locations": [
+                "south-forest",
+                "ukraine"
+            ],
+            "weight": 0,
+            "is_train": true,
+            "label": "NSML"
+        },
+        {
+            "locations": [
+                "highland-north",
+                "south-forest"
+            ],
+            "weight": 0,
+            "is_train": true,
+            "label": "NSML"
+        },
+        {
+            "locations": [
+                "grumblers-grove",
+                "south-forest"
+            ],
+            "weight": 0,
+            "is_train": true,
+            "label": "Bboy Line"
+        },
+        {
+            "locations": [
+                "froggathorpe",
+                "grumblers-grove"
+            ],
+            "weight": 0,
+            "is_train": true,
+            "label": "Bboy Line"
+        },
+        {
+            "locations": [
+                "gribthorpe",
+                "froggathorpe"
+            ],
+            "weight": 0,
+            "is_train": true,
+            "label": "Bboy Line"
+        },
+        {
+            "locations": [
+                "locke",
+                "gribthorpe"
+            ],
+            "weight": 0,
+            "is_train": true,
+            "label": "Bboy Line"
+        },
+        {
+            "locations": [
+                "cresmont-hills",
+                "locke"
+            ],
+            "weight": 0,
+            "is_train": true,
+            "label": "Bboy Line"
+        },
+        {
+            "locations": [
+                "cresmont-hills",
+                "locke"
+            ],
+            "weight": 0,
+            "is_train": true,
+            "label": "PPNW"
+        },
+        {
+            "locations": [
+                "cresmont-hills",
+                "gentoo"
+            ],
+            "weight": 0,
+            "is_train": true,
+            "label": "Bboy Line"
+        },
+        {
+            "locations": [
+                "cresmont-hills",
+                "gentoo"
+            ],
+            "weight": 0,
+            "is_train": true,
+            "label": "PPNW"
+        },
+        {
+            "locations": [
+                "midlands",
+                "gentoo"
+            ],
+            "weight": 0,
+            "is_train": true,
+            "label": "EWML"
+        },
+        {
+            "locations": [
+                "luzern",
+                "midlands"
+            ],
+            "weight": 0,
+            "is_train": true,
+            "label": "EWML"
+        },
+        {
+            "locations": [
+                "pridehaven",
+                "luzern"
+            ],
+            "weight": 0,
+            "is_train": true,
+            "label": "EWML"
+        },
+        {
+            "locations": [
+                "central-boardwalk-road",
+                "spawn"
+            ],
+            "weight": 0,
+            "is_train": false,
+            "label": ""
+        },
+        {
+            "locations": [
+                "central-rise-row",
+                "central-boardwalk-road"
+            ],
+            "weight": 0,
+            "is_train": false,
+            "label": ""
+        },
+        {
+            "locations": [
+                "central-hotel-way",
+                "central-rise-row"
+            ],
+            "weight": 0,
+            "is_train": false,
+            "label": ""
+        },
+        {
+            "locations": [
+                "central-hotel-path",
+                "central-hotel-way"
+            ],
+            "weight": 0,
+            "is_train": false,
+            "label": ""
+        },
+        {
+            "locations": [
+                "central-hotel-path",
+                "bboy-hotel"
+            ],
+            "weight": 0,
+            "is_train": false,
+            "label": ""
+        },
+        {
+            "locations": [
+                "pridehaven-market",
+                "pridehaven"
+            ],
+            "weight": 0,
+            "is_train": true,
+            "label": "Red Line"
+        },
+        {
+            "locations": [
+                "pridehaven-saturn",
+                "pridehaven-market"
+            ],
+            "weight": 0,
+            "is_train": true,
+            "label": "Red Line"
+        },
+        {
+            "locations": [
+                "pridehaven-jasmine-court",
+                "pridehaven-saturn"
+            ],
+            "weight": 0,
+            "is_train": true,
+            "label": "Red Line"
+        },
+        {
+            "locations": [
+                "pridehaven-buttercup",
+                "pridehaven-jasmine-court"
+            ],
+            "weight": 0,
+            "is_train": true,
+            "label": "Red Line"
+        },
+        {
+            "locations": [
+                "pridehaven-peony",
+                "pridehaven-buttercup"
+            ],
+            "weight": 0,
+            "is_train": true,
+            "label": "Orange Line"
+        },
+        {
+            "locations": [
+                "pridehaven-hq",
+                "pridehaven-peony"
+            ],
+            "weight": 0,
+            "is_train": true,
+            "label": "Orange Line"
+        },
+        {
+            "locations": [
+                "pridehaven-hq",
+                "pridehaven-market"
+            ],
+            "weight": 0,
+            "is_train": true,
+            "label": "Orange Line"
+        },
+        {
+            "locations": [
+                "pridehaven-hq",
+                "pridehaven-market"
+            ],
+            "weight": 0,
+            "is_train": true,
+            "label": "Yellow Line"
+        },
+        {
+            "locations": [
+                "pridehaven-sappho",
+                "pridehaven-hq"
+            ],
+            "weight": 0,
+            "is_train": true,
+            "label": "Yellow Line"
+        },
+        {
+            "locations": [
+                "pridehaven-marsha",
+                "pridehaven-sappho"
+            ],
+            "weight": 0,
+            "is_train": true,
+            "label": "Green Line"
+        },
+        {
+            "locations": [
+                "pridehaven-marsha",
+                "pridehaven"
+            ],
+            "weight": 0,
+            "is_train": true,
+            "label": "Green Line"
+        },
+        {
+            "locations": [
+                "pridehaven-jupiter",
+                "pridehaven-market"
+            ],
+            "weight": 0,
+            "is_train": true,
+            "label": "Yellow Line"
+        },
+        {
+            "locations": [
+                "pridehaven-clara",
+                "pridehaven-jupiter"
+            ],
+            "weight": 0,
+            "is_train": true,
+            "label": "Yellow Line"
+        },
+        {
+            "locations": [
+                "pridehaven-tami-t",
+                "pridehaven-clara"
+            ],
+            "weight": 0,
+            "is_train": true,
+            "label": "Yellow Line"
+        },
+        {
+            "locations": [
+                "pridehaven-bilbo",
+                "pridehaven-market"
+            ],
+            "weight": 0,
+            "is_train": true,
+            "label": "Orange Line"
+        },
+        {
+            "locations": [
+                "pridehaven-clara",
+                "pridehaven-bilbo"
+            ],
+            "weight": 0,
+            "is_train": true,
+            "label": "Orange Line"
+        },
+        {
+            "locations": [
+                "pridehaven-amy-beach",
+                "pridehaven-clara"
+            ],
+            "weight": 0,
+            "is_train": true,
+            "label": "Orange Line"
+        },
+        {
+            "locations": [
+                "pridehaven-begonia",
+                "pridehaven-jupiter"
+            ],
+            "weight": 0,
+            "is_train": true,
+            "label": "Blue Line"
+        },
+        {
+            "locations": [
+                "pridehaven-jupiter",
+                "pridehaven-bilbo"
+            ],
+            "weight": 0,
+            "is_train": true,
+            "label": "Blue Line"
+        },
+        {
+            "locations": [
+                "pridehaven-siamese",
+                "pridehaven-bilbo"
+            ],
+            "weight": 0,
+            "is_train": true,
+            "label": "Blue Line"
+        },
+        {
+            "locations": [
+                "pridehaven-lynx",
+                "pridehaven-siamese"
+            ],
+            "weight": 0,
+            "is_train": true,
+            "label": "Green Line"
+        },
+        {
+            "locations": [
+                "pridehaven-siamese",
+                "pridehaven"
+            ],
+            "weight": 0,
+            "is_train": true,
+            "label": "Green Line"
+        },
+        {
+            "locations": [
+                "pridehaven-amy-beach",
+                "pridehaven-tami-t"
+            ],
+            "weight": 0,
+            "is_train": true,
+            "label": "Purple Line"
+        },
+        {
+            "locations": [
+                "pridehaven-amy-beach",
+                "pridehaven-jupiter"
+            ],
+            "weight": 0,
+            "is_train": true,
+            "label": "Purple Line"
+        },
+        {
+            "locations": [
+                "pridehaven-tami-t",
+                "pridehaven-lynx"
+            ],
+            "weight": 0,
+            "is_train": true,
+            "label": "Purple Line"
+        },
+        {
+            "locations": [
+                "pridehaven-lynx",
+                "pridehaven-sappho"
+            ],
+            "weight": 0,
+            "is_train": true,
+            "label": "Purple Line"
+        },
+        {
+            "locations": [
+                "pridehaven-sappho",
+                "pridehaven-buttercup"
+            ],
+            "weight": 0,
+            "is_train": true,
+            "label": "Purple Line"
+        },
+        {
+            "locations": [
+                "pridehaven-buttercup",
+                "pridehaven-begonia"
+            ],
+            "weight": 0,
+            "is_train": true,
+            "label": "Purple Line"
+        },
+        {
+            "locations": [
+                "pridehaven-begonia",
+                "pridehaven-market"
+            ],
+            "weight": 0,
+            "is_train": true,
+            "label": "Yellow Line"
+        },
+        {
+            "locations": [
+                "pridehaven-begonia",
+                "pridehaven-clara"
+            ],
+            "weight": 0,
+            "is_train": true,
+            "label": "Yellow Line"
         }
     ]
 }

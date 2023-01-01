@@ -1,4 +1,6 @@
 #!/usr/bin/python3
+import gzip
+import time
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -20,16 +22,17 @@ class Application:
             self.config.get_config_value(ConfigKeys.StorageProviderConfig)
         )
 
-        use_editor = "editor" in sys.argv[1:] if len(sys.argv) > 1 else False
-        if use_editor:
+        self.use_editor = "editor" in sys.argv[1:] if len(sys.argv) > 1 else False
+
+    def run(self):
+        if self.use_editor:
             EditorApplication(self.storage, self.config).run()
         else:
             planner = RoutePlanner(self.storage)
 
-            above_central_station = Position(87, -220)  # Position(-127, -283)
-            # start_pos = Position(-1000, 200)
-            above_tub_station = Position(1566, -288)
-            route = planner.plan_route(above_central_station, above_tub_station)
+            from_pos = Position(87, -220)
+            to_pos = Position(12177, -256) # Position(1566, -288)
+            route = planner.plan_route(from_pos, to_pos)
 
             for entry in route.get_entries():
                 print(entry.get_entry_text())
@@ -38,6 +41,8 @@ class Application:
 
     def plot_routemap(self, planned_route):
         fig, ax = plt.subplots()
+
+        fig.set_size_inches(100, 100)
 
         lines = []
         for connection in self.storage.get_connections():
@@ -70,8 +75,35 @@ class Application:
         ax.add_collection(LineCollection(point_pairs, colors=np.array([(1, 0, 0, 1)]), linewidths=1))
 
         ax.autoscale()
-        plt.savefig("output.png")
+        fig.savefig("output.png")
 
 
 if __name__ == "__main__":
-    Application()
+    profile = "profile" in sys.argv[1:] if len(sys.argv) > 1 else False
+
+    if profile:
+        import cProfile
+        from pycallgraph import PyCallGraph
+        from pycallgraph.output import GraphvizOutput
+        import pstats
+        import io
+
+        output_name = str(time.time()) + ".dat.gz"
+        profiler = cProfile.Profile()
+        with PyCallGraph(output=GraphvizOutput()):
+            profiler.enable()
+            try:
+                Application().run()
+            except Exception:
+                pass
+        profiler.disable()
+
+        output_buffer = io.StringIO()
+        ps = pstats.Stats(profiler, stream=output_buffer).sort_stats('tottime')
+        ps.print_stats()
+
+        with open(output_name, "wb") as f:
+            with gzip.open(f, "wt") as gz:
+                gz.write(output_buffer.getvalue())
+    else:
+        Application().run()

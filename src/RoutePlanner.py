@@ -11,6 +11,8 @@ class RouteConnectionChanges(Enum):
     BoardTrain = 0
     LeaveTrain = 1
     ChangeTrain = 2
+    EnterStreet = 3
+    ChangeStreet = 4
 
 
 class RoutePath:
@@ -101,7 +103,24 @@ class RoutePlanner:
                         else:
                             train_riding_stops.append(position)
                 else:
-                    pass
+                    if current.connection is not None:
+                        if current.connection.is_train:
+                            # leave train
+                            route_path.append(RoutePath(current, position, RouteConnectionChanges.LeaveTrain,
+                                                        self.storage, train_riding_stops))
+                            on_train = False
+                            current = position
+                            train_riding_stops = []
+                        else:
+                            # change to other connection (walking, street)
+                            route_path.append(RoutePath(current, position, RouteConnectionChanges.ChangeStreet,
+                                                        self.storage, train_riding_stops))
+                            current = position
+                    else:
+                        # enter walking on connection (street)
+                        route_path.append(RoutePath(current, position, RouteConnectionChanges.EnterStreet,
+                                                    self.storage, train_riding_stops))
+                        current = position
             else:
                 if current.connection is not None:
                     if current.connection.is_train:
@@ -111,6 +130,8 @@ class RoutePlanner:
                         on_train = False
                         current = position
                         train_riding_stops = []
+                    else:
+                        pass
                 else:
                     pass
 

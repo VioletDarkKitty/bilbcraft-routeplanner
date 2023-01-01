@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'editor-sidewindowlxkqvk.ui'
+## Form generated from reading UI file 'editor_sidewindowRFLbjc.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.2.4
 ##
@@ -15,9 +15,10 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QFormLayout, QLabel, QLineEdit,
-    QListWidget, QListWidgetItem, QSizePolicy, QSpinBox,
-    QVBoxLayout, QWidget)
+from PySide6.QtWidgets import (QApplication, QFormLayout, QHBoxLayout, QLabel,
+    QLineEdit, QListWidget, QListWidgetItem, QPushButton,
+    QSizePolicy, QSpacerItem, QSpinBox, QVBoxLayout,
+    QWidget)
 
 class Ui_Form(object):
     def setupUi(self, Form):
@@ -71,10 +72,24 @@ class Ui_Form(object):
 
         self.verticalLayout.addLayout(self.formLayout)
 
+        self.horizontalLayout = QHBoxLayout()
+        self.horizontalLayout.setObjectName(u"horizontalLayout")
         self.label = QLabel(Form)
         self.label.setObjectName(u"label")
 
-        self.verticalLayout.addWidget(self.label)
+        self.horizontalLayout.addWidget(self.label)
+
+        self.horizontalSpacer = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+
+        self.horizontalLayout.addItem(self.horizontalSpacer)
+
+        self.delete_location = QPushButton(Form)
+        self.delete_location.setObjectName(u"delete_location")
+
+        self.horizontalLayout.addWidget(self.delete_location)
+
+
+        self.verticalLayout.addLayout(self.horizontalLayout)
 
         self.connections_list = QListWidget(Form)
         self.connections_list.setObjectName(u"connections_list")
@@ -94,5 +109,6 @@ class Ui_Form(object):
         self.label_4.setText(QCoreApplication.translate("Form", u"X", None))
         self.label_5.setText(QCoreApplication.translate("Form", u"Y (minecraft Z)", None))
         self.label.setText(QCoreApplication.translate("Form", u"Connections", None))
+        self.delete_location.setText(QCoreApplication.translate("Form", u"Delete Location", None))
     # retranslateUi
 
