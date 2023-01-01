@@ -1,8 +1,10 @@
+import multiprocessing
 import random
 import sys
 import typing
 
-from PySide6.QtCore import QPoint
+from PySide6 import QtCore
+from PySide6.QtCore import QPoint, QThread, QObject
 from PySide6.QtGui import Qt, QIcon, QAction, QCursor
 from PySide6.QtWidgets import QApplication, QMainWindow, QTreeWidgetItem, QWidget, QListWidgetItem, QDialog, QMenu, \
     QMessageBox
@@ -14,6 +16,27 @@ from src.StorageProvider import StorageProvider
 from src.ui_mainwindow import Ui_MainWindow
 from src.ui_editor_sidewindow import Ui_Form as EditorSideWindowForm
 from src.ui_editor_connection import Ui_Form as EditorConnectionForm
+from src.ui_editor_cachewindow import Ui_Form as EditorCacheForm
+
+
+class CacheThreadWorker(QObject):
+    finished = QtCore.Signal()
+    progress = QtCore.Signal(int, int)
+
+    def __init__(self, storage, max_x, min_x, max_y, min_y, threads):
+        super().__init__()
+        self.storage = storage
+        self.max_x = max_x
+        self.min_x = min_x
+        self.max_y = max_y
+        self.min_y = min_y
+        self.threads = threads
+
+    def run(self):
+        total_num = (self.max_x - self.min_x) * (self.max_y - self.min_y)
+        self.storage.make_cache(self.min_x, self.max_x, self.min_y, self.max_y, self.threads,
+                                lambda v: self.progress.emit(v, total_num))
+        self.finished.emit()
 
 
 class MainWindow(QMainWindow):
@@ -33,6 +56,10 @@ class MainWindow(QMainWindow):
         self.connection_form_modal = None
         self.connection_form_modal_dialog = None
         self.current_editing_connection: typing.Optional[Connection] = None
+        self.ui_cache_modal: typing.Optional[EditorCacheForm] = None
+        self.ui_cache_dialog_modal = None
+        self.cache_worker = None
+        self.cache_thread = None
 
         self.setWindowIcon(self.cra_icon)
         self.setup_signals()
@@ -42,6 +69,7 @@ class MainWindow(QMainWindow):
         self.ui.actionQuit.triggered.connect(sys.exit)
         self.ui.actionAddLocation.triggered.connect(self.on_add_location)
         self.ui.actionAddConnection.triggered.connect(self.on_add_connection)
+        self.ui.actionBuild_Cache.triggered.connect(self.on_build_cache)
         self.ui.actionSave.triggered.connect(self.on_save)
 
     def init_storage_view(self):
@@ -249,7 +277,7 @@ class MainWindow(QMainWindow):
         self.connection_form_modal_dialog = dialog
         dialog.children().append(widget)
         widget.setParent(dialog)
-        dialog.setWindowModality(Qt.WindowModality.WindowModal)
+        dialog.setWindowModality(Qt.WindowModality.ApplicationModal)
         if title is not None:
             dialog.setWindowTitle(title)
         dialog.show()
@@ -365,6 +393,71 @@ class MainWindow(QMainWindow):
             self.ui.statusbar.showMessage("Deleted location {} and {} connections".format(
                 location.get_label(), num_connections
             ), 5000)
+
+    def on_build_cache(self):
+        cache_form = EditorCacheForm()
+        self.ui_cache_modal = cache_form
+        widget = QWidget()
+        cache_form.setupUi(widget)
+
+        cache_form.start_button.pressed.connect(self.on_begin_cache)
+        cache_form.edit_threads.setMinimum(1)
+        num_cpus = multiprocessing.cpu_count()
+        cache_form.edit_threads.setMaximum(num_cpus)
+        cache_form.edit_threads.setValue(num_cpus)
+
+        dimensions = self.config.get_config_value(ConfigKeys.WorldBorderDimensions)
+        for x in [cache_form.edit_x_max, cache_form.edit_x_min]:
+            x.setMinimum(dimensions.get(ConfigDataKeys.WorldBorderDimensionsMinX))
+            x.setMaximum(dimensions.get(ConfigDataKeys.WorldBorderDimensionsMaxX))
+        for y in [cache_form.edit_y_max, cache_form.edit_y_min]:
+            y.setMinimum(dimensions.get(ConfigDataKeys.WorldBorderDimensionsMinY))
+            y.setMaximum(dimensions.get(ConfigDataKeys.WorldBorderDimensionsMaxY))
+
+        dialog = QDialog()
+        self.ui_cache_dialog_modal = dialog
+        dialog.children().append(widget)
+        widget.setParent(dialog)
+        dialog.setWindowModality(Qt.WindowModality.ApplicationModal)
+        dialog.setWindowTitle("Cache")
+        dialog.show()
+        dialog.exec_()
+
+    def on_begin_cache(self):
+        for x in [self.ui_cache_modal.edit_x_min, self.ui_cache_modal.edit_x_max,
+                  self.ui_cache_modal.edit_y_min, self.ui_cache_modal.edit_y_max]:
+            x.setDisabled(True)
+        self.ui_cache_modal.start_button.setDisabled(True)
+        self.ui_cache_modal.edit_threads.setDisabled(True)
+
+        min_x = self.ui_cache_modal.edit_x_min.value()
+        max_x = self.ui_cache_modal.edit_x_max.value()
+        min_y = self.ui_cache_modal.edit_y_min.value()
+        max_y = self.ui_cache_modal.edit_y_max.value()
+        threads = self.ui_cache_modal.edit_threads.value()
+
+        self.cache_worker = CacheThreadWorker(self.storage, max_x, min_x, max_y, min_y, threads)
+        self.cache_thread = QThread()
+        self.cache_worker.moveToThread(self.cache_thread)
+
+        self.cache_worker.finished.connect(self.cache_thread.quit)
+        self.cache_worker.finished.connect(self.cache_worker.deleteLater)
+        self.cache_thread.started.connect(self.cache_worker.run)
+        self.cache_thread.finished.connect(self.cache_thread.deleteLater)
+        self.cache_worker.finished.connect(self.on_cache_end)
+        self.cache_worker.progress.connect(self.update_percent_bar)
+
+        self.cache_thread.start()
+
+    def on_cache_end(self):
+        self.ui_cache_dialog_modal.close()
+        self.ui_cache_dialog_modal = None
+        self.ui_cache_modal = None
+        self.cache_worker = None
+
+    def update_percent_bar(self, v, total_num):
+        self.ui_cache_modal.progressBar.setValue(v // total_num * 100)
+        self.ui_cache_modal.progress_text.setText("{} / {}".format(v, total_num))
 
 
 class EditorApplication:

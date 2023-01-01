@@ -13,6 +13,7 @@ class ConfigKeys(Enum):
     StorageProviderType = "storage_provider_type"
     StorageProviderConfig = "storage_provider_config"
     WorldBorderDimensions = "world_border_dimensions"
+    NetworkInterfaceConfig = "network_interface"
 
 
 class ConfigDataKeys(Enum):
@@ -20,6 +21,8 @@ class ConfigDataKeys(Enum):
     WorldBorderDimensionsMaxX = "max_x"
     WorldBorderDimensionsMinY = "min_y"
     WorldBorderDimensionsMaxY = "max_y"
+    NetworkListenAddress = "address"
+    NetworkListenPort = "port"
 
 
 class Config:
@@ -34,6 +37,10 @@ class Config:
                 ConfigDataKeys.WorldBorderDimensionsMaxX:  10_000_000,
                 ConfigDataKeys.WorldBorderDimensionsMinY: -10_000_000,
                 ConfigDataKeys.WorldBorderDimensionsMaxY:  10_000_000
+            },
+            ConfigKeys.NetworkInterfaceConfig: {
+                ConfigDataKeys.NetworkListenAddress: "127.0.0.1",
+                ConfigDataKeys.NetworkListenPort:    28_581
             }
         }
 

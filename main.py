@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 import gzip
 import time
+import traceback
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -9,6 +10,7 @@ import sys
 
 from src.Config import Config, ConfigKeys
 from src.Location import Position
+from src.NetworkInterface import NetworkInterface
 from src.RoutePlanner import RoutePlanner
 from src.StorageProvider import StorageProvider
 from src.Editor import EditorApplication
@@ -28,16 +30,17 @@ class Application:
         if self.use_editor:
             EditorApplication(self.storage, self.config).run()
         else:
-            planner = RoutePlanner(self.storage)
+            """planner = RoutePlanner(self.storage)
 
             from_pos = Position(87, -220)
-            to_pos = Position(12177, -256) # Position(1566, -288)
+            to_pos = Position(12177, -256)
             route = planner.plan_route(from_pos, to_pos)
 
             for entry in route.get_entries():
                 print(entry.get_entry_text())
 
-            self.plot_routemap(route)
+            self.plot_routemap(route)"""
+            NetworkInterface(self.config, self.storage).run()
 
     def plot_routemap(self, planned_route):
         fig, ax = plt.subplots()
@@ -83,19 +86,25 @@ if __name__ == "__main__":
 
     if profile:
         import cProfile
-        from pycallgraph import PyCallGraph
+        from pycallgraph import PyCallGraph, GlobbingFilter, Config as PyCallGraphConfig
         from pycallgraph.output import GraphvizOutput
         import pstats
         import io
 
+        config = PyCallGraphConfig(max_depth=8)
+        config.trace_filter = GlobbingFilter(exclude=[
+            "pycallgraph.*",
+            "matplotlib.*"
+        ])
+
         output_name = str(time.time()) + ".dat.gz"
         profiler = cProfile.Profile()
-        with PyCallGraph(output=GraphvizOutput()):
+        with PyCallGraph(output=GraphvizOutput(), config=config):
             profiler.enable()
             try:
                 Application().run()
-            except Exception:
-                pass
+            except Exception as e:
+                print(traceback.format_exc())
         profiler.disable()
 
         output_buffer = io.StringIO()

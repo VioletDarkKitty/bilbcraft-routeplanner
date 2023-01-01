@@ -371,6 +371,12 @@
             "label": "Lynx",
             "x": 12120,
             "y": 179
+        },
+        {
+            "id": "tub-tub-lane",
+            "label": "Tub Tub Lane",
+            "x": 166,
+            "y": -364
         }
     ],
     "connections": [
@@ -1102,6 +1108,24 @@
             "weight": 0,
             "is_train": true,
             "label": "Yellow Line"
+        },
+        {
+            "locations": [
+                "mug-mug-lane",
+                "central-station"
+            ],
+            "weight": 0,
+            "is_train": true,
+            "label": "Pink Line"
+        },
+        {
+            "locations": [
+                "tub-tub-lane",
+                "mug-mug-lane"
+            ],
+            "weight": 0,
+            "is_train": true,
+            "label": "Pink Line"
         }
     ]
 }

@@ -69,4 +69,6 @@ class AStar:
         x1, y1 = a
         x2, y2 = b
 
-        return math.sqrt((x1 - x2) ** 2 + (y1 - y2) ** 2)
+        # return math.sqrt((x1 - x2) ** 2 + (y1 - y2) ** 2)
+        # use Manhattan distance instead, less priority for diagonal distances
+        return abs(x2 - x1) + abs(y2 - y1)

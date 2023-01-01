@@ -1,11 +1,15 @@
+import gc
 import json
 import math
+import os.path
 import random
 import typing
 from abc import ABC, abstractmethod
 from enum import Enum
+from multiprocessing.pool import ThreadPool, Pool
 from typing import Tuple
 
+from src.Cache import Cache
 from src.Connection import Connection
 from src.Direction import Direction
 from src.Location import Location
@@ -98,12 +102,26 @@ class StorageProvider(ABC):
     def update_connection(self, connection):
         pass
 
+    @abstractmethod
+    def make_cache(self, min_x: int, max_x: int, min_y: int, max_y: int, max_threads: int,
+                   callback: typing.Callable[[int], None]):
+        pass
+
 
 class Neighbour:
     def __init__(self, direction, pos: Tuple[int, int], connection):
         self.direction = direction
         self.pos = pos
         self.connection = connection
+
+    def to_dict(self, original_location):
+        return {
+            "pos": self.pos
+        }
+
+    @staticmethod
+    def from_dict(data):
+        Neighbour(0, data["pos"], None)
 
 
 class JsonStorageProvider(StorageProvider):
@@ -114,6 +132,10 @@ class JsonStorageProvider(StorageProvider):
         self.locations_by_position = {}
         self.locations_list = []
         self.connections = []
+        self.cache_path = "./cache.dat.gz"
+        self.cache = Cache()
+        if os.path.exists(self.cache_path):
+            self.cache.from_file(self.cache_path)
 
         with open(path, "r") as f:
             data = json.load(f)
@@ -175,6 +197,12 @@ class JsonStorageProvider(StorageProvider):
         return self.connections
 
     def get_pos_neighbours(self, pos: Tuple[int, int]) -> [Neighbour]:
+        cached_value = self.cache.get_cached_value("neighbours", str(pos))
+        if cached_value is not None:
+            neighbours = [Neighbour.from_dict(x) for x in cached_value]
+            neighbours.extend(self._get_neighbours_for_location(pos))
+            return neighbours
+
         neighbours = []
         x, y = pos
         for direction, neighbour_direction in self.neighbour_directions.items():
@@ -185,13 +213,18 @@ class JsonStorageProvider(StorageProvider):
                 continue
             neighbours.append(Neighbour(direction, (x2, y2), None))
 
+        neighbours.extend(self._get_neighbours_for_location(pos))
+
+        return neighbours
+
+    def _get_neighbours_for_location(self, pos):
         location = self.get_location_at_pos(pos)
+        neighbours = []
         if location is not None:
             for connection in location.get_connections():
                 other_location = connection.get_other_side(location)
                 if other_location is not None:
                     neighbours.append(Neighbour(None, other_location.get_pos(), connection))
-
         return neighbours
 
     def get_location_at_pos(self, pos: Tuple[int, int]):
@@ -210,6 +243,10 @@ class JsonStorageProvider(StorageProvider):
         :param pos: Position to check
         :return: The shortest distance to a train that we checked
         """
+        cached_value = self.cache.get_cached_value("heuristic", str(pos))
+        if cached_value is not None:
+            return cached_value
+
         checking_locations = {}
         checking_num = math.ceil(len(self.locations_list) / 8)
         while checking_num > 0:
@@ -219,8 +256,12 @@ class JsonStorageProvider(StorageProvider):
             checking_locations[next_check_pos] = self.locations_list[next_check_pos]
             checking_num -= 1
 
+        return self._get_min_distance_to_locations(list(checking_locations.values()), pos)
+
+    @staticmethod
+    def _get_min_distance_to_locations(checking_locations, pos):
         min_distance = None
-        for _, v in checking_locations.items():
+        for v in checking_locations:
             if not v.get_is_station():
                 continue
 
@@ -228,7 +269,6 @@ class JsonStorageProvider(StorageProvider):
             dist = AStar.distance_between_points(pos, v.get_pos())
             if min_distance is None or dist < min_distance:
                 min_distance = dist
-
         return min_distance
 
     @staticmethod
@@ -268,3 +308,50 @@ class JsonStorageProvider(StorageProvider):
 
     def update_connection(self, connection):
         pass
+
+    def _make_cache_job(self, data):
+        locations, pos = data
+        return pos, self._get_min_distance_to_locations(locations, pos), []
+
+    @staticmethod
+    def _square_generator(min_x, max_x, min_y, max_y):
+        for i in range(min_x, max_x + 1):
+            for j in range(min_y, max_y + 1):
+                yield i, j
+
+    @staticmethod
+    def _chunk_array(array, chunk_size):
+        for i in range(0, len(array), chunk_size):
+            yield array[i:i + chunk_size]
+
+    def make_cache(self, min_x: int, max_x: int, min_y: int, max_y: int, max_threads: int,
+                   callback: typing.Callable[[int], None]):
+        pool = Pool(max_threads)
+
+        positions = list(self._square_generator(min_x, max_x, min_y, max_y))
+        results_set = []
+        gc_every = 1000
+        last_gc = 0
+        for i, data_part in enumerate(self._chunk_array(
+                list(zip([self.get_locations()] * len(positions), positions)),
+                1000000)
+        ):
+            results = pool.map(self._make_cache_job, data_part)
+            results_set.append(results)
+            if last_gc >= gc_every:
+                print("gc")
+                gc.collect()
+                last_gc = 0
+            last_gc += 1
+
+            callback(i * 1000)
+        pool.close()
+        pool.terminate()
+
+        for results in results_set:
+            for result in results:
+                pos, heuristic, neighbours = result
+                self.cache.set_cached_value("heuristic", str(pos), heuristic)
+                # self.cache.set_cached_value("neighbours", str(pos), neighbours)
+
+        self.cache.to_file(self.cache_path)

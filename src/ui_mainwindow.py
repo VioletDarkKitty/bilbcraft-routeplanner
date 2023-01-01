@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'mainwindowPppOWq.ui'
+## Form generated from reading UI file 'mainwindowmQJobS.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.2.4
 ##
@@ -39,6 +39,8 @@ class Ui_MainWindow(object):
         self.actionAbout = QAction(MainWindow)
         self.actionAbout.setObjectName(u"actionAbout")
         self.actionAbout.setMenuRole(QAction.AboutRole)
+        self.actionBuild_Cache = QAction(MainWindow)
+        self.actionBuild_Cache.setObjectName(u"actionBuild_Cache")
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.horizontalLayout_2 = QHBoxLayout(self.centralwidget)
@@ -93,6 +95,7 @@ class Ui_MainWindow(object):
         self.menuFile.addAction(self.actionQuit)
         self.menuEdit.addAction(self.actionAddLocation)
         self.menuEdit.addAction(self.actionAddConnection)
+        self.menuEdit.addAction(self.actionBuild_Cache)
         self.menuHelp.addAction(self.actionAbout)
 
         self.retranslateUi(MainWindow)
@@ -114,6 +117,7 @@ class Ui_MainWindow(object):
         self.actionAddLocation.setText(QCoreApplication.translate("MainWindow", u"Add Location", None))
         self.actionAddConnection.setText(QCoreApplication.translate("MainWindow", u"Add Connection", None))
         self.actionAbout.setText(QCoreApplication.translate("MainWindow", u"About", None))
+        self.actionBuild_Cache.setText(QCoreApplication.translate("MainWindow", u"Build Cache", None))
         self.menuFile.setTitle(QCoreApplication.translate("MainWindow", u"File", None))
         self.menuEdit.setTitle(QCoreApplication.translate("MainWindow", u"Edit", None))
         self.menuHelp.setTitle(QCoreApplication.translate("MainWindow", u"Help", None))
