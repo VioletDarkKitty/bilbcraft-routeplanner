@@ -14,6 +14,8 @@ class ConfigKeys(Enum):
     StorageProviderConfig = "storage_provider_config"
     WorldBorderDimensions = "world_border_dimensions"
     NetworkInterfaceConfig = "network_interface"
+    LoggerType = "logger_type"
+    LoggerConfig = "logger_config"
 
 
 class ConfigDataKeys(Enum):
@@ -41,6 +43,10 @@ class Config:
             ConfigKeys.NetworkInterfaceConfig: {
                 ConfigDataKeys.NetworkListenAddress: "127.0.0.1",
                 ConfigDataKeys.NetworkListenPort:    28_581
+            },
+            ConfigKeys.LoggerType: "db",
+            ConfigKeys.LoggerConfig: {
+                "db_path": "./log.db"
             }
         }
 

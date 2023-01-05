@@ -1,9 +1,10 @@
 class Connection:
-    def __init__(self, weight: int, is_train: bool, label: str):
+    def __init__(self, weight: int, is_train: bool, label: str, description: str):
         self.connecting_locations = []
         self.weight = weight
         self.is_train = is_train
         self.label = label
+        self.description = description
 
     def add_location(self, location):
         self.connecting_locations.append(location)
@@ -42,3 +43,9 @@ class Connection:
     def remove_location(self, old_location):
         self.connecting_locations.remove(old_location)
         old_location.remove_connection(self)
+
+    def get_description(self):
+        return self.description if self.description is not None else ""
+
+    def set_description(self, description):
+        self.description = description

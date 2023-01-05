@@ -13,6 +13,7 @@ from src.Cache import Cache
 from src.Connection import Connection
 from src.Direction import Direction
 from src.Location import Location
+from src.Logger import Logger, LogEntry, LogLevel
 
 
 class StorageException(Exception):
@@ -24,27 +25,33 @@ class StorageProviderTypes(Enum):
 
 
 class StorageProvider(ABC):
-    def __init__(self):
+    def __init__(self, logger: Logger):
+        self.logger = logger
+
         self.neighbour_directions = {
             Direction.North: (0, -1),
             Direction.South: (0, 1),
             Direction.West: (-1, 0),
-            Direction.East: (1, 0),
-            Direction.NE: (1, -1),
+            Direction.East: (1, 0)
+        }
+        """Direction.NE: (1, -1),
             Direction.NW: (-1, -1),
             Direction.SE: (1, 1),
-            Direction.SW: (-1, 1)
-        }
+            Direction.SW: (-1, 1)"""
 
     @staticmethod
-    def create(provider_type, data):
+    def create(logger: Logger, provider_type, data):
         provider_types = {
             StorageProviderTypes.JsonStorage: JsonStorageProvider
         }
         if provider_type in provider_types:
-            return provider_types[provider_type](**data)
+            return provider_types[provider_type](logger, **data)
         else:
             raise StorageException("Unknown storage type {}".format(provider_type))
+
+    @staticmethod
+    def update_storage_version(self, old_version: typing.Optional[int], new_version: int):
+        pass
 
     @abstractmethod
     def save(self):
@@ -125,8 +132,9 @@ class Neighbour:
 
 
 class JsonStorageProvider(StorageProvider):
-    def __init__(self, path):
-        super().__init__()
+    def __init__(self, logger: Logger, path):
+        super().__init__(logger)
+        self.version: int = 1
         self.path = path
         self.locations_by_id = {}
         self.locations_by_position = {}
@@ -135,27 +143,51 @@ class JsonStorageProvider(StorageProvider):
         self.cache_path = "./cache.dat.gz"
         self.cache = Cache()
         if os.path.exists(self.cache_path):
+            print("Loading from cache")
             self.cache.from_file(self.cache_path)
 
         with open(path, "r") as f:
             data = json.load(f)
-            for key in ["locations", "connections"]:
-                self._check_keys(key, data)
 
-            for location_data in data["locations"]:
-                for key in ["id", "label", "x", "y"]:
-                    self._check_keys(key, location_data)
+            # updating the data does not load it but does modify it
+            save_required = False
+            if "version" not in data or data["version"] < self.version:
+                old_version = data["version"] if "version" in data.keys() else None
+                self.update_storage_version(old_version, self.version, data)
+                save_required = True
+
+            self.load_json_data(data)
+            if save_required:
+                self.save()
+
+    def update_storage_version(self, old_version: typing.Optional[int], new_version: int, data):
+        if old_version is None:
+            data["version"] = self.version
+            self.load_json_data(data, allow_default_fill=True, no_object_construction=True)
+        else:
+            raise StorageException("Cannot upgrade from version {} to {}".format(old_version, new_version))
+        self.logger.add_entry(LogEntry.create(LogLevel.Info,
+                                              "Updated storage from version {} to {}".format(old_version, new_version)))
+
+    def load_json_data(self, data, allow_default_fill=False, no_object_construction=False):
+        for key in ["locations", "connections"]:
+            self._check_keys(key, data, allow_default_fill)
+        for location_data in data["locations"]:
+            for key in ["id", "label", "x", "y", "description"]:
+                self._check_keys(key, location_data, allow_default_fill)
+            if not no_object_construction:
                 from src.Location import Location
-                location = Location(location_data["id"], location_data["label"], location_data["x"], location_data["y"])
+                location = Location(location_data["id"], location_data["label"], location_data["x"], location_data["y"],
+                                    location_data["description"])
                 self.locations_by_id[location.get_id()] = location
                 self.locations_by_position[location.get_pos()] = location
                 self.locations_list.append(location)
-
-            for connection_data in data["connections"]:
-                for key in ["locations", "weight", "is_train", "label"]:
-                    self._check_keys(key, connection_data)
+        for connection_data in data["connections"]:
+            for key in ["locations", "weight", "is_train", "label", "description"]:
+                self._check_keys(key, connection_data, allow_default_fill)
+            if not no_object_construction:
                 connection = Connection(connection_data["weight"], connection_data["is_train"],
-                                        connection_data["label"])
+                                        connection_data["label"], connection_data["description"])
                 for connection_location in connection_data["locations"]:
                     if connection_location not in self.locations_by_id.keys():
                         raise StorageException("No such location '{}'".format(connection_location))
@@ -164,6 +196,7 @@ class JsonStorageProvider(StorageProvider):
 
     def save(self):
         data = {
+            "version": self.version,
             "locations": [],
             "connections": []
         }
@@ -174,7 +207,8 @@ class JsonStorageProvider(StorageProvider):
                 "id": location.get_id(),
                 "label": location.get_label(),
                 "x": x,
-                "y": y
+                "y": y,
+                "description": location.get_description()
             }
             data["locations"].append(location_data)
 
@@ -183,7 +217,8 @@ class JsonStorageProvider(StorageProvider):
                 "locations": [x.get_id() for x in connection.get_locations()],
                 "weight": connection.get_weight(),
                 "is_train": connection.get_is_train(),
-                "label": connection.get_label()
+                "label": connection.get_label(),
+                "description": connection.get_description()
             }
             data["connections"].append(connection_data)
 
@@ -272,9 +307,12 @@ class JsonStorageProvider(StorageProvider):
         return min_distance
 
     @staticmethod
-    def _check_keys(key, data):
+    def _check_keys(key, data, default_if_missing=False, default=None):
         if key not in data.keys():
-            raise StorageException("Key '{}' missing in json data".format(key))
+            if default_if_missing:
+                data[key] = default
+            else:
+                raise StorageException("Key '{}' missing in json data".format(key))
 
     def add_location(self, location: Location):
         self.locations_by_id[location.get_id()] = location
@@ -309,8 +347,8 @@ class JsonStorageProvider(StorageProvider):
     def update_connection(self, connection):
         pass
 
-    def _make_cache_job(self, data):
-        locations, pos = data
+    def _make_cache_job(self, pos):
+        locations = self.get_locations()
         return pos, self._get_min_distance_to_locations(locations, pos), []
 
     @staticmethod
@@ -332,10 +370,7 @@ class JsonStorageProvider(StorageProvider):
         results_set = []
         gc_every = 1000
         last_gc = 0
-        for i, data_part in enumerate(self._chunk_array(
-                list(zip([self.get_locations()] * len(positions), positions)),
-                1000000)
-        ):
+        for i, data_part in enumerate(self._chunk_array(positions, 1000000)):
             results = pool.map(self._make_cache_job, data_part)
             results_set.append(results)
             if last_gc >= gc_every:

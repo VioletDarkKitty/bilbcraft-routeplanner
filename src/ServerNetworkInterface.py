@@ -1,5 +1,6 @@
 import asyncio
 import json
+import re
 from json import JSONDecodeError
 
 from src.Config import Config, ConfigKeys, ConfigDataKeys
@@ -57,7 +58,7 @@ class NetworkProtocol(asyncio.Protocol):
         self.transport.close()
 
 
-class NetworkInterface:
+class ServerNetworkInterface:
     def __init__(self, config: Config, storage: StorageProvider):
         self.config = config
         self.storage = storage
@@ -78,3 +79,74 @@ class NetworkInterface:
     def run(self):
         print("Listening on {}:{}".format(self.address, self.port))
         asyncio.run(self.serve_loop())
+
+
+class ClientNetworkProtocol(asyncio.Protocol):
+    def __init__(self, message, on_con_lost):
+        self.message = message
+        self.on_con_lost = on_con_lost
+
+    def connection_made(self, transport):
+        transport.write(self.message.encode())
+        print('Data sent: {!r}'.format(self.message))
+
+    def data_received(self, data):
+        print('Data received: {!r}'.format(data.decode()))
+
+    def connection_lost(self, exc):
+        print('The server closed the connection')
+        self.on_con_lost.set_result(True)
+
+
+class ClientNetworkInterface:
+    def __init__(self, config: Config, storage: StorageProvider):
+        self.config = config
+        self.storage = storage
+
+        self.address = "127.0.0.1"
+        self.port = 28_581
+
+        self.x1 = 0
+        self.y1 = 0
+        self.x2 = 0
+        self.y2 = 0
+
+        self.tuple_re = re.compile(r"(?:\()?(-?[0-9]+),(?: *)(-?[0-9]+)(?:\))?")
+
+    async def client_connection(self):
+        loop = asyncio.get_running_loop()
+
+        on_con_lost = loop.create_future()
+        data = {
+            "type": "route",
+            "x1": self.x1,
+            "y1": self.y1,
+            "x2": self.x2,
+            "y2": self.y2
+        }
+        message = json.dumps(data)
+
+        transport, protocol = await loop.create_connection(lambda: ClientNetworkProtocol(message, on_con_lost),
+                                                           self.address, self.port)
+
+        try:
+            await on_con_lost
+        finally:
+            transport.close()
+
+    def get_position(self, message):
+        match = None
+        while match is None:
+            input_data = input(message)
+            match = self.tuple_re.match(input_data)
+        return int(match.group(1)), int(match.group(2))
+
+    def run(self):
+        start_pos = self.get_position("Start position x,y: ")
+        self.x1 = start_pos[0]
+        self.y1 = start_pos[1]
+        end_pos = self.get_position("End position x,y: ")
+        self.x2 = end_pos[0]
+        self.y2 = end_pos[1]
+
+        asyncio.run(self.client_connection())

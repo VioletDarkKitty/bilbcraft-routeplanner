@@ -1,382 +1,446 @@
 {
+    "version": 1,
     "locations": [
         {
             "id": "central-station",
             "label": "Central Station",
             "x": -125,
-            "y": -227
+            "y": -227,
+            "description": ""
         },
         {
             "id": "central-station-subway",
             "label": "Central Station Subway",
             "x": -94,
-            "y": -223
+            "y": -223,
+            "description": ""
         },
         {
             "id": "tub-train-station",
             "label": "Tub Train Station",
             "x": 398,
-            "y": -412
+            "y": -412,
+            "description": ""
         },
         {
             "id": "bboy-hotel",
             "label": "Bboy Hotel",
             "x": 96,
-            "y": -129
+            "y": -129,
+            "description": ""
         },
         {
             "id": "metro-mall",
             "label": "Metropolitan Mall",
             "x": -436,
-            "y": -444
+            "y": -444,
+            "description": ""
         },
         {
             "id": "derby-upon-tyne",
             "label": "Derby-upon-Tyne",
             "x": -886,
-            "y": -470
+            "y": -470,
+            "description": ""
         },
         {
             "id": "spawn-marina",
             "label": "Spawn Marina",
             "x": 150,
-            "y": -223
+            "y": -223,
+            "description": ""
         },
         {
             "id": "east-plains",
             "label": "East Plains",
             "x": 778,
-            "y": -417
+            "y": -417,
+            "description": ""
         },
         {
             "id": "foothills-station",
             "label": "Foothills Station",
             "x": 1600,
-            "y": -413
+            "y": -413,
+            "description": ""
         },
         {
             "id": "gentoo",
             "label": "Gentoo",
             "x": 2120,
-            "y": -62
+            "y": -62,
+            "description": ""
         },
         {
             "id": "jaguar",
             "label": "Jaguar",
             "x": 1944,
-            "y": -70
+            "y": -70,
+            "description": ""
         },
         {
             "id": "fairy",
             "label": "Fairy",
             "x": 1670,
-            "y": -26
+            "y": -26,
+            "description": ""
         },
         {
             "id": "cosan",
             "label": "Cos\u00e1n",
             "x": 1070,
-            "y": 122
+            "y": 122,
+            "description": ""
         },
         {
             "id": "dinbych",
             "label": "Dinbych",
             "x": 826,
-            "y": 128
+            "y": 128,
+            "description": ""
         },
         {
             "id": "spruceheart",
             "label": "Spruceheart",
             "x": 354,
-            "y": 112
+            "y": 112,
+            "description": ""
         },
         {
             "id": "powder-mill",
             "label": "Powder Mill",
             "x": 504,
-            "y": -122
+            "y": -122,
+            "description": ""
         },
         {
             "id": "tub-mountain-south",
             "label": "Tub Mountain (South Entrance)",
             "x": 382,
-            "y": -310
+            "y": -310,
+            "description": ""
         },
         {
             "id": "ukraine",
             "label": "Ukraine",
             "x": -115,
-            "y": 149
+            "y": 149,
+            "description": ""
         },
         {
             "id": "stoneworks",
             "label": "StoneWorks",
             "x": 44,
-            "y": 0
+            "y": 0,
+            "description": ""
         },
         {
             "id": "ancoats",
             "label": "Ancoats",
             "x": -46,
-            "y": -112
+            "y": -112,
+            "description": ""
         },
         {
             "id": "mug-mug-lane",
             "label": "Mug Mug Lane",
             "x": 16,
-            "y": -330
+            "y": -330,
+            "description": ""
         },
         {
             "id": "spruce-valley-farm",
             "label": "Spruce Valley Farm",
             "x": 318,
-            "y": -80
+            "y": -80,
+            "description": ""
         },
         {
             "id": "penguin-park",
             "label": "Penguin Park",
             "x": -64,
-            "y": -408
+            "y": -408,
+            "description": ""
         },
         {
             "id": "north-approach",
             "label": "North Approach",
             "x": -84,
-            "y": -628
+            "y": -628,
+            "description": ""
         },
         {
             "id": "swamp-north",
             "label": "Swamp North Train Station",
             "x": -110,
-            "y": -1324
+            "y": -1324,
+            "description": ""
         },
         {
             "id": "lagoon-wood-train-statioin",
             "label": "Lagoon Wood Train Station",
             "x": -126,
-            "y": -2690
+            "y": -2690,
+            "description": ""
         },
         {
             "id": "kippenberg",
             "label": "Kippenberg Train Station",
             "x": -108,
-            "y": -3830
+            "y": -3830,
+            "description": ""
         },
         {
             "id": "linton",
             "label": "Linton Train Station",
             "x": -114,
-            "y": -4758
+            "y": -4758,
+            "description": ""
         },
         {
             "id": "altnabreac",
             "label": "Altnabreac Train Station",
             "x": -110,
-            "y": -5538
+            "y": -5538,
+            "description": ""
         },
         {
             "id": "imperium",
             "label": "Imperium (International) Train Station",
             "x": -114,
-            "y": -8062
+            "y": -8062,
+            "description": ""
         },
         {
             "id": "rapture",
             "label": "Rapture Interchange Train Station",
             "x": -114,
-            "y": -10964
+            "y": -10964,
+            "description": ""
         },
         {
             "id": "south-forest",
             "label": "South Forest",
             "x": -120,
-            "y": 816
+            "y": 816,
+            "description": ""
         },
         {
             "id": "highland-north",
             "label": "Highland North",
             "x": -128,
-            "y": 1832
+            "y": 1832,
+            "description": ""
         },
         {
             "id": "grumblers-grove",
             "label": "Grumblers Grove",
             "x": 612,
-            "y": 796
+            "y": 796,
+            "description": ""
         },
         {
             "id": "froggathorpe",
             "label": "Froggathorpe Junction",
             "x": 1324,
-            "y": 828
+            "y": 828,
+            "description": ""
         },
         {
             "id": "gribthorpe",
             "label": "Gribthorpe",
             "x": 1852,
-            "y": 808
+            "y": 808,
+            "description": ""
         },
         {
             "id": "locke",
             "label": "Locke",
             "x": 2328,
-            "y": 688
+            "y": 688,
+            "description": ""
         },
         {
             "id": "cresmont-hills",
             "label": "Cresmont Hills",
             "x": 2224,
-            "y": 312
+            "y": 312,
+            "description": ""
         },
         {
             "id": "midlands",
             "label": "Midlands",
             "x": 6740,
-            "y": -68
+            "y": -68,
+            "description": ""
         },
         {
             "id": "luzern",
             "label": "Luzern",
             "x": 9068,
-            "y": -52
+            "y": -52,
+            "description": ""
         },
         {
             "id": "pridehaven",
             "label": "Pridehaven Central",
             "x": 12272,
-            "y": -80
+            "y": -80,
+            "description": ""
         },
         {
             "id": "spawn",
             "label": "Spawn",
             "x": 86,
-            "y": -220
+            "y": -220,
+            "description": ""
         },
         {
             "id": "central-boardwalk-road",
             "label": "Boardwalk Road",
             "x": 90,
-            "y": -199
+            "y": -199,
+            "description": ""
         },
         {
             "id": "central-rise-row",
             "label": "Rise Row",
             "x": 100,
-            "y": -188
+            "y": -188,
+            "description": ""
         },
         {
             "id": "central-hotel-way",
             "label": "Hotel Way",
             "x": 106,
-            "y": -174
+            "y": -174,
+            "description": ""
         },
         {
             "id": "central-hotel-path",
             "label": "Hotel Path",
             "x": 106,
-            "y": -161
+            "y": -161,
+            "description": ""
         },
         {
             "id": "pridehaven-market",
             "label": "Market",
             "x": 12150,
-            "y": -146
+            "y": -146,
+            "description": ""
         },
         {
             "id": "pridehaven-saturn",
             "label": "Saturn",
             "x": 12097,
-            "y": -229
+            "y": -229,
+            "description": ""
         },
         {
             "id": "pridehaven-jasmine-court",
             "label": "Jasmine Court",
             "x": 12040,
-            "y": -302
+            "y": -302,
+            "description": ""
         },
         {
             "id": "pridehaven-buttercup",
             "label": "Buttercup",
             "x": 12130,
-            "y": -373
+            "y": -373,
+            "description": ""
         },
         {
             "id": "pridehaven-peony",
             "label": "Peony",
             "x": 12235,
-            "y": -295
+            "y": -295,
+            "description": ""
         },
         {
             "id": "pridehaven-hq",
             "label": "Pridehaven HQ",
             "x": 12277,
-            "y": -185
+            "y": -185,
+            "description": ""
         },
         {
             "id": "pridehaven-sappho",
             "label": "Sappho",
             "x": 12362,
-            "y": -232
+            "y": -232,
+            "description": ""
         },
         {
             "id": "pridehaven-marsha",
             "label": "Marsha P Johnson",
             "x": 12339,
-            "y": -126
+            "y": -126,
+            "description": ""
         },
         {
             "id": "pridehaven-jupiter",
             "label": "Jupiter",
             "x": 12028,
-            "y": -123
+            "y": -123,
+            "description": ""
         },
         {
             "id": "pridehaven-clara",
             "label": "Clara Schumann",
             "x": 11997,
-            "y": 59
+            "y": 59,
+            "description": ""
         },
         {
             "id": "pridehaven-tami-t",
             "label": "Tami T",
             "x": 11955,
-            "y": 124
+            "y": 124,
+            "description": ""
         },
         {
             "id": "pridehaven-bilbo",
             "label": "Big Bilbo",
             "x": 12079,
-            "y": 8
+            "y": 8,
+            "description": ""
         },
         {
             "id": "pridehaven-amy-beach",
             "label": "Amy Beach",
             "x": 11883,
-            "y": -37
+            "y": -37,
+            "description": ""
         },
         {
             "id": "pridehaven-begonia",
             "label": "Begonia",
             "x": 11956,
-            "y": -264
+            "y": -264,
+            "description": ""
         },
         {
             "id": "pridehaven-siamese",
             "label": "Siamese",
             "x": 12192,
-            "y": 90
+            "y": 90,
+            "description": ""
         },
         {
             "id": "pridehaven-lynx",
             "label": "Lynx",
             "x": 12120,
-            "y": 179
+            "y": 179,
+            "description": ""
         },
         {
             "id": "tub-tub-lane",
             "label": "Tub Tub Lane",
             "x": 166,
-            "y": -364
+            "y": -364,
+            "description": ""
         }
     ],
     "connections": [
@@ -387,7 +451,8 @@
             ],
             "weight": 0,
             "is_train": true,
-            "label": "EWML"
+            "label": "EWML",
+            "description": ""
         },
         {
             "locations": [
@@ -396,7 +461,8 @@
             ],
             "weight": 0,
             "is_train": true,
-            "label": "Central Line (Yellow)"
+            "label": "Central Line (Yellow)",
+            "description": ""
         },
         {
             "locations": [
@@ -405,7 +471,8 @@
             ],
             "weight": 0,
             "is_train": true,
-            "label": "Bboy Line"
+            "label": "Bboy Line",
+            "description": ""
         },
         {
             "locations": [
@@ -414,7 +481,8 @@
             ],
             "weight": 0,
             "is_train": true,
-            "label": "Bboy Line"
+            "label": "Bboy Line",
+            "description": ""
         },
         {
             "locations": [
@@ -423,7 +491,8 @@
             ],
             "weight": 0,
             "is_train": true,
-            "label": "Purple Subway"
+            "label": "Purple Subway",
+            "description": ""
         },
         {
             "locations": [
@@ -432,16 +501,18 @@
             ],
             "weight": 0,
             "is_train": false,
-            "label": "Central Station"
+            "label": "Central Station",
+            "description": ""
         },
         {
             "locations": [
-                "tub-train-station",
-                "east-plains"
+                "east-plains",
+                "tub-train-station"
             ],
             "weight": 0,
             "is_train": true,
-            "label": "EWML"
+            "label": "EWML",
+            "description": "West Platform towards Central"
         },
         {
             "locations": [
@@ -450,7 +521,8 @@
             ],
             "weight": 0,
             "is_train": true,
-            "label": "EWML"
+            "label": "EWML",
+            "description": "East Platform towards Mesa"
         },
         {
             "locations": [
@@ -459,7 +531,8 @@
             ],
             "weight": 0,
             "is_train": true,
-            "label": "EWML"
+            "label": "EWML",
+            "description": ""
         },
         {
             "locations": [
@@ -468,7 +541,8 @@
             ],
             "weight": 0,
             "is_train": true,
-            "label": "PPNW"
+            "label": "PPNW",
+            "description": ""
         },
         {
             "locations": [
@@ -477,7 +551,8 @@
             ],
             "weight": 0,
             "is_train": true,
-            "label": "PPNW"
+            "label": "PPNW",
+            "description": ""
         },
         {
             "locations": [
@@ -486,7 +561,8 @@
             ],
             "weight": 0,
             "is_train": true,
-            "label": "PPNW"
+            "label": "PPNW",
+            "description": ""
         },
         {
             "locations": [
@@ -495,7 +571,8 @@
             ],
             "weight": 0,
             "is_train": true,
-            "label": "PPNW"
+            "label": "PPNW",
+            "description": ""
         },
         {
             "locations": [
@@ -504,7 +581,8 @@
             ],
             "weight": 0,
             "is_train": true,
-            "label": "PPNW"
+            "label": "PPNW",
+            "description": ""
         },
         {
             "locations": [
@@ -513,7 +591,8 @@
             ],
             "weight": 0,
             "is_train": true,
-            "label": "Pink Line"
+            "label": "Pink Line",
+            "description": ""
         },
         {
             "locations": [
@@ -522,7 +601,8 @@
             ],
             "weight": 0,
             "is_train": true,
-            "label": "Pink Line"
+            "label": "Pink Line",
+            "description": ""
         },
         {
             "locations": [
@@ -531,16 +611,18 @@
             ],
             "weight": 0,
             "is_train": true,
-            "label": "Cyan Line"
+            "label": "Cyan Line",
+            "description": ""
         },
         {
             "locations": [
-                "tub-mountain-south",
-                "bboy-hotel"
+                "bboy-hotel",
+                "spawn-marina"
             ],
             "weight": 0,
             "is_train": true,
-            "label": "Cyan Line"
+            "label": "Cyan Line",
+            "description": "Inner Rail"
         },
         {
             "locations": [
@@ -549,7 +631,8 @@
             ],
             "weight": 0,
             "is_train": true,
-            "label": "PPNW"
+            "label": "PPNW",
+            "description": ""
         },
         {
             "locations": [
@@ -558,16 +641,18 @@
             ],
             "weight": 0,
             "is_train": true,
-            "label": "Cyan Line"
+            "label": "Cyan Line",
+            "description": ""
         },
         {
             "locations": [
-                "stoneworks",
-                "bboy-hotel"
+                "bboy-hotel",
+                "stoneworks"
             ],
             "weight": 0,
             "is_train": true,
-            "label": "Cyan Line"
+            "label": "Cyan Line",
+            "description": "Outer Rail towards Ukraine"
         },
         {
             "locations": [
@@ -576,7 +661,8 @@
             ],
             "weight": 0,
             "is_train": true,
-            "label": "Central Line (Yellow)"
+            "label": "Central Line (Yellow)",
+            "description": ""
         },
         {
             "locations": [
@@ -585,7 +671,8 @@
             ],
             "weight": 0,
             "is_train": true,
-            "label": "Central Line (Yellow)"
+            "label": "Central Line (Yellow)",
+            "description": ""
         },
         {
             "locations": [
@@ -594,7 +681,8 @@
             ],
             "weight": 0,
             "is_train": true,
-            "label": "Central Line (Yellow)"
+            "label": "Central Line (Yellow)",
+            "description": ""
         },
         {
             "locations": [
@@ -603,7 +691,8 @@
             ],
             "weight": 0,
             "is_train": true,
-            "label": "NSML"
+            "label": "NSML",
+            "description": ""
         },
         {
             "locations": [
@@ -612,7 +701,8 @@
             ],
             "weight": 0,
             "is_train": true,
-            "label": "NSML"
+            "label": "NSML",
+            "description": ""
         },
         {
             "locations": [
@@ -621,7 +711,8 @@
             ],
             "weight": 0,
             "is_train": true,
-            "label": "NSML"
+            "label": "NSML",
+            "description": ""
         },
         {
             "locations": [
@@ -630,7 +721,8 @@
             ],
             "weight": 0,
             "is_train": true,
-            "label": "NSML"
+            "label": "NSML",
+            "description": ""
         },
         {
             "locations": [
@@ -639,7 +731,8 @@
             ],
             "weight": 0,
             "is_train": true,
-            "label": "NSML"
+            "label": "NSML",
+            "description": ""
         },
         {
             "locations": [
@@ -648,7 +741,8 @@
             ],
             "weight": 0,
             "is_train": true,
-            "label": "NSML"
+            "label": "NSML",
+            "description": ""
         },
         {
             "locations": [
@@ -657,7 +751,8 @@
             ],
             "weight": 0,
             "is_train": true,
-            "label": "NSML"
+            "label": "NSML",
+            "description": ""
         },
         {
             "locations": [
@@ -666,7 +761,8 @@
             ],
             "weight": 0,
             "is_train": true,
-            "label": "NSML"
+            "label": "NSML",
+            "description": ""
         },
         {
             "locations": [
@@ -675,7 +771,8 @@
             ],
             "weight": 0,
             "is_train": true,
-            "label": "NSML"
+            "label": "NSML",
+            "description": ""
         },
         {
             "locations": [
@@ -684,7 +781,8 @@
             ],
             "weight": 0,
             "is_train": true,
-            "label": "NSML"
+            "label": "NSML",
+            "description": ""
         },
         {
             "locations": [
@@ -693,7 +791,8 @@
             ],
             "weight": 0,
             "is_train": true,
-            "label": "NSML"
+            "label": "NSML",
+            "description": ""
         },
         {
             "locations": [
@@ -702,7 +801,8 @@
             ],
             "weight": 0,
             "is_train": true,
-            "label": "Bboy Line"
+            "label": "Bboy Line",
+            "description": ""
         },
         {
             "locations": [
@@ -711,7 +811,8 @@
             ],
             "weight": 0,
             "is_train": true,
-            "label": "Bboy Line"
+            "label": "Bboy Line",
+            "description": ""
         },
         {
             "locations": [
@@ -720,7 +821,8 @@
             ],
             "weight": 0,
             "is_train": true,
-            "label": "Bboy Line"
+            "label": "Bboy Line",
+            "description": ""
         },
         {
             "locations": [
@@ -729,7 +831,8 @@
             ],
             "weight": 0,
             "is_train": true,
-            "label": "Bboy Line"
+            "label": "Bboy Line",
+            "description": ""
         },
         {
             "locations": [
@@ -738,7 +841,8 @@
             ],
             "weight": 0,
             "is_train": true,
-            "label": "Bboy Line"
+            "label": "Bboy Line",
+            "description": ""
         },
         {
             "locations": [
@@ -747,7 +851,8 @@
             ],
             "weight": 0,
             "is_train": true,
-            "label": "PPNW"
+            "label": "PPNW",
+            "description": ""
         },
         {
             "locations": [
@@ -756,7 +861,8 @@
             ],
             "weight": 0,
             "is_train": true,
-            "label": "Bboy Line"
+            "label": "Bboy Line",
+            "description": ""
         },
         {
             "locations": [
@@ -765,7 +871,8 @@
             ],
             "weight": 0,
             "is_train": true,
-            "label": "PPNW"
+            "label": "PPNW",
+            "description": ""
         },
         {
             "locations": [
@@ -774,7 +881,8 @@
             ],
             "weight": 0,
             "is_train": true,
-            "label": "EWML"
+            "label": "EWML",
+            "description": ""
         },
         {
             "locations": [
@@ -783,7 +891,8 @@
             ],
             "weight": 0,
             "is_train": true,
-            "label": "EWML"
+            "label": "EWML",
+            "description": ""
         },
         {
             "locations": [
@@ -792,7 +901,8 @@
             ],
             "weight": 0,
             "is_train": true,
-            "label": "EWML"
+            "label": "EWML",
+            "description": ""
         },
         {
             "locations": [
@@ -801,7 +911,8 @@
             ],
             "weight": 0,
             "is_train": false,
-            "label": ""
+            "label": "",
+            "description": ""
         },
         {
             "locations": [
@@ -810,7 +921,8 @@
             ],
             "weight": 0,
             "is_train": false,
-            "label": ""
+            "label": "",
+            "description": ""
         },
         {
             "locations": [
@@ -819,7 +931,8 @@
             ],
             "weight": 0,
             "is_train": false,
-            "label": ""
+            "label": "",
+            "description": ""
         },
         {
             "locations": [
@@ -828,7 +941,8 @@
             ],
             "weight": 0,
             "is_train": false,
-            "label": ""
+            "label": "",
+            "description": ""
         },
         {
             "locations": [
@@ -837,16 +951,18 @@
             ],
             "weight": 0,
             "is_train": false,
-            "label": ""
+            "label": "",
+            "description": ""
         },
         {
             "locations": [
-                "pridehaven-market",
-                "pridehaven"
+                "pridehaven",
+                "pridehaven-market"
             ],
             "weight": 0,
             "is_train": true,
-            "label": "Red Line"
+            "label": "Red Line",
+            "description": "Downstairs"
         },
         {
             "locations": [
@@ -855,7 +971,8 @@
             ],
             "weight": 0,
             "is_train": true,
-            "label": "Red Line"
+            "label": "Red Line",
+            "description": ""
         },
         {
             "locations": [
@@ -864,7 +981,8 @@
             ],
             "weight": 0,
             "is_train": true,
-            "label": "Red Line"
+            "label": "Red Line",
+            "description": ""
         },
         {
             "locations": [
@@ -873,7 +991,8 @@
             ],
             "weight": 0,
             "is_train": true,
-            "label": "Red Line"
+            "label": "Red Line",
+            "description": ""
         },
         {
             "locations": [
@@ -882,7 +1001,8 @@
             ],
             "weight": 0,
             "is_train": true,
-            "label": "Orange Line"
+            "label": "Orange Line",
+            "description": ""
         },
         {
             "locations": [
@@ -891,7 +1011,8 @@
             ],
             "weight": 0,
             "is_train": true,
-            "label": "Orange Line"
+            "label": "Orange Line",
+            "description": ""
         },
         {
             "locations": [
@@ -900,7 +1021,8 @@
             ],
             "weight": 0,
             "is_train": true,
-            "label": "Orange Line"
+            "label": "Orange Line",
+            "description": ""
         },
         {
             "locations": [
@@ -909,7 +1031,8 @@
             ],
             "weight": 0,
             "is_train": true,
-            "label": "Yellow Line"
+            "label": "Yellow Line",
+            "description": ""
         },
         {
             "locations": [
@@ -918,7 +1041,8 @@
             ],
             "weight": 0,
             "is_train": true,
-            "label": "Yellow Line"
+            "label": "Yellow Line",
+            "description": ""
         },
         {
             "locations": [
@@ -927,7 +1051,8 @@
             ],
             "weight": 0,
             "is_train": true,
-            "label": "Green Line"
+            "label": "Green Line",
+            "description": ""
         },
         {
             "locations": [
@@ -936,7 +1061,8 @@
             ],
             "weight": 0,
             "is_train": true,
-            "label": "Green Line"
+            "label": "Green Line",
+            "description": ""
         },
         {
             "locations": [
@@ -945,7 +1071,8 @@
             ],
             "weight": 0,
             "is_train": true,
-            "label": "Yellow Line"
+            "label": "Yellow Line",
+            "description": ""
         },
         {
             "locations": [
@@ -954,7 +1081,8 @@
             ],
             "weight": 0,
             "is_train": true,
-            "label": "Yellow Line"
+            "label": "Yellow Line",
+            "description": ""
         },
         {
             "locations": [
@@ -963,7 +1091,8 @@
             ],
             "weight": 0,
             "is_train": true,
-            "label": "Yellow Line"
+            "label": "Yellow Line",
+            "description": ""
         },
         {
             "locations": [
@@ -972,7 +1101,8 @@
             ],
             "weight": 0,
             "is_train": true,
-            "label": "Orange Line"
+            "label": "Orange Line",
+            "description": ""
         },
         {
             "locations": [
@@ -981,7 +1111,8 @@
             ],
             "weight": 0,
             "is_train": true,
-            "label": "Orange Line"
+            "label": "Orange Line",
+            "description": ""
         },
         {
             "locations": [
@@ -990,7 +1121,8 @@
             ],
             "weight": 0,
             "is_train": true,
-            "label": "Orange Line"
+            "label": "Orange Line",
+            "description": ""
         },
         {
             "locations": [
@@ -999,7 +1131,8 @@
             ],
             "weight": 0,
             "is_train": true,
-            "label": "Blue Line"
+            "label": "Blue Line",
+            "description": ""
         },
         {
             "locations": [
@@ -1008,7 +1141,8 @@
             ],
             "weight": 0,
             "is_train": true,
-            "label": "Blue Line"
+            "label": "Blue Line",
+            "description": ""
         },
         {
             "locations": [
@@ -1017,7 +1151,8 @@
             ],
             "weight": 0,
             "is_train": true,
-            "label": "Blue Line"
+            "label": "Blue Line",
+            "description": ""
         },
         {
             "locations": [
@@ -1026,7 +1161,8 @@
             ],
             "weight": 0,
             "is_train": true,
-            "label": "Green Line"
+            "label": "Green Line",
+            "description": ""
         },
         {
             "locations": [
@@ -1035,7 +1171,8 @@
             ],
             "weight": 0,
             "is_train": true,
-            "label": "Green Line"
+            "label": "Green Line",
+            "description": ""
         },
         {
             "locations": [
@@ -1044,7 +1181,8 @@
             ],
             "weight": 0,
             "is_train": true,
-            "label": "Purple Line"
+            "label": "Purple Line",
+            "description": ""
         },
         {
             "locations": [
@@ -1053,7 +1191,8 @@
             ],
             "weight": 0,
             "is_train": true,
-            "label": "Purple Line"
+            "label": "Purple Line",
+            "description": ""
         },
         {
             "locations": [
@@ -1062,7 +1201,8 @@
             ],
             "weight": 0,
             "is_train": true,
-            "label": "Purple Line"
+            "label": "Purple Line",
+            "description": ""
         },
         {
             "locations": [
@@ -1071,7 +1211,8 @@
             ],
             "weight": 0,
             "is_train": true,
-            "label": "Purple Line"
+            "label": "Purple Line",
+            "description": ""
         },
         {
             "locations": [
@@ -1080,7 +1221,8 @@
             ],
             "weight": 0,
             "is_train": true,
-            "label": "Purple Line"
+            "label": "Purple Line",
+            "description": ""
         },
         {
             "locations": [
@@ -1089,7 +1231,8 @@
             ],
             "weight": 0,
             "is_train": true,
-            "label": "Purple Line"
+            "label": "Purple Line",
+            "description": ""
         },
         {
             "locations": [
@@ -1098,7 +1241,8 @@
             ],
             "weight": 0,
             "is_train": true,
-            "label": "Yellow Line"
+            "label": "Yellow Line",
+            "description": ""
         },
         {
             "locations": [
@@ -1107,7 +1251,8 @@
             ],
             "weight": 0,
             "is_train": true,
-            "label": "Yellow Line"
+            "label": "Yellow Line",
+            "description": ""
         },
         {
             "locations": [
@@ -1116,7 +1261,8 @@
             ],
             "weight": 0,
             "is_train": true,
-            "label": "Pink Line"
+            "label": "Pink Line",
+            "description": ""
         },
         {
             "locations": [
@@ -1125,7 +1271,18 @@
             ],
             "weight": 0,
             "is_train": true,
-            "label": "Pink Line"
+            "label": "Pink Line",
+            "description": ""
+        },
+        {
+            "locations": [
+                "spawn-marina",
+                "tub-mountain-south"
+            ],
+            "weight": 0,
+            "is_train": true,
+            "label": "Cyan Line",
+            "description": ""
         }
     ]
 }

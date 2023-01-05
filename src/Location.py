@@ -1,3 +1,4 @@
+import typing
 from typing import Tuple
 
 
@@ -29,11 +30,13 @@ class Position:
 class Location(Position):
     from src.Connection import Connection
 
-    def __init__(self, location_id, label: str, x: int, y: int):
+    def __init__(self, location_id, label: str, x: int, y: int, description: typing.Optional[str]):
         super().__init__(x, y)
         self.id = location_id
         self.prev_id = None
         self.label = label
+        self.description = description
+
         self.is_station = False
         self.connections = []
 
@@ -77,3 +80,9 @@ class Location(Position):
 
     def get_is_station(self):
         return self.is_station
+
+    def get_description(self):
+        return self.description if self.description is not None else ""
+
+    def set_description(self, description):
+        self.description = description

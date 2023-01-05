@@ -222,7 +222,7 @@ class MainWindow(QMainWindow):
     def on_add_location(self):
         self.save_required = True
         random_id = self.make_random_id()
-        location = Location(random_id, random_id, 0, 0)
+        location = Location(random_id, random_id, 0, 0, None)
         self.storage.add_location(location)
         self.init_storage_view()
         self.load_location_sidebar(location)
@@ -240,6 +240,15 @@ class MainWindow(QMainWindow):
         connection_form.cancel_button.clicked.connect(self.on_add_connection_modal_cancel)
         connection_form.delete_connection.setDisabled(True)
 
+    @staticmethod
+    def _unique(data: typing.List):
+        values = []
+        for x in data:
+            if x in values:
+                continue
+            values.append(x)
+        return values
+
     def show_connection_modal(self, editing_location: Location,
                               button_modifier: typing.Callable[[EditorConnectionForm], None],
                               default_2nd_location=None, title=None):
@@ -251,6 +260,7 @@ class MainWindow(QMainWindow):
                                                                editing_location.get_pos()),
                                                 userData=editing_location)
         connection_form.location_combo1.setDisabled(True)
+        description = ""
         if self.current_editing_connection is None:
             connection_label = self.make_random_id()
         else:
@@ -258,7 +268,17 @@ class MainWindow(QMainWindow):
             connection_form.edit_train.setCheckState(Qt.Checked if self.current_editing_connection.get_is_train()
                                                      else Qt.Unchecked)
             connection_form.edit_weight.setValue(self.current_editing_connection.get_weight())
-        connection_form.edit_label.setText(connection_label)
+            description = self.current_editing_connection.get_description()
+        connection_form.edit_description.setPlainText(description)
+
+        connection_labels = self._unique([x.get_label() for x in self.storage.get_connections()])
+        label_index = None
+        for i, label in enumerate(connection_labels):
+            if label == connection_label:
+                label_index = i
+            connection_form.edit_label.addItem(label)
+        if label_index is not None:
+            connection_form.edit_label.setCurrentIndex(label_index)
 
         default_index = None
         for i, location in enumerate(self.storage.get_locations()):
@@ -273,22 +293,20 @@ class MainWindow(QMainWindow):
 
         button_modifier(connection_form)
 
-        dialog = QDialog()
-        self.connection_form_modal_dialog = dialog
-        dialog.children().append(widget)
-        widget.setParent(dialog)
-        dialog.setWindowModality(Qt.WindowModality.ApplicationModal)
+        widget.setWindowModality(Qt.WindowModality.ApplicationModal)
         if title is not None:
-            dialog.setWindowTitle(title)
-        dialog.show()
-        dialog.exec_()
+            widget.setWindowTitle(title)
+
+        widget.show()
+        self.connection_form_modal_dialog = widget
 
     def on_add_connection_modal_ok(self):
         self.save_required = True
 
         connection = Connection(self.connection_form_modal.edit_weight.value(),
                                 self.connection_form_modal.edit_train.checkState() == Qt.Checked,
-                                self.connection_form_modal.edit_label.text())
+                                self.connection_form_modal.edit_label.currentText(),
+                                self.connection_form_modal.edit_description.toPlainText())
 
         location_1 = self.connection_form_modal.location_combo1.itemData(
             self.connection_form_modal.location_combo1.currentIndex())
@@ -329,7 +347,7 @@ class MainWindow(QMainWindow):
         connection = self.current_editing_connection
         connection.set_weight(self.connection_form_modal.edit_weight.value())
         connection.set_is_train(self.connection_form_modal.edit_train.checkState() == Qt.Checked)
-        connection.set_label(self.connection_form_modal.edit_label.text())
+        connection.set_label(self.connection_form_modal.edit_label.currentText())
 
         location_1 = self.connection_form_modal.location_combo1.itemData(
             self.connection_form_modal.location_combo1.currentIndex())
@@ -340,6 +358,8 @@ class MainWindow(QMainWindow):
         connection.remove_location(old_location)
         connection.add_location(location_2)
         self.storage.update_connection(connection)
+
+        connection.set_description(self.connection_form_modal.edit_description.toPlainText())
 
         self.init_storage_view()
         self.load_location_sidebar(self.storage.get_location_by_id(self.current_editing_location_id))
@@ -471,4 +491,4 @@ class EditorApplication:
         window = MainWindow(app, self.storage, self.config)
         window.show()
 
-        sys.exit(app.exec())
+        sys.exit(app.exec_())

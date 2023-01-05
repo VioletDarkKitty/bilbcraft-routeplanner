@@ -10,7 +10,8 @@ import sys
 
 from src.Config import Config, ConfigKeys
 from src.Location import Position
-from src.NetworkInterface import NetworkInterface
+from src.Logger import Logger, LogEntry, LogLevel
+from src.ServerNetworkInterface import ServerNetworkInterface, ClientNetworkInterface
 from src.RoutePlanner import RoutePlanner
 from src.StorageProvider import StorageProvider
 from src.Editor import EditorApplication
@@ -19,28 +20,42 @@ from src.Editor import EditorApplication
 class Application:
     def __init__(self):
         self.config = Config("./config.json")
+        self.logger = Logger.create(
+            self.config.get_config_value(ConfigKeys.LoggerType),
+            self.config.get_config_value(ConfigKeys.LoggerConfig)
+        )
+        print("Loading from storage")
         self.storage = StorageProvider.create(
+            self.logger,
             self.config.get_config_value(ConfigKeys.StorageProviderType),
             self.config.get_config_value(ConfigKeys.StorageProviderConfig)
         )
 
-        self.use_editor = "editor" in sys.argv[1:] if len(sys.argv) > 1 else False
+        args = sys.argv[1:]
+        self.use_editor = "editor" in args if len(sys.argv) > 1 else False
+        self.as_client = "client" in args if len(sys.argv) > 1 else False
 
     def run(self):
-        if self.use_editor:
-            EditorApplication(self.storage, self.config).run()
-        else:
-            """planner = RoutePlanner(self.storage)
-
-            from_pos = Position(87, -220)
-            to_pos = Position(12177, -256)
-            route = planner.plan_route(from_pos, to_pos)
-
-            for entry in route.get_entries():
-                print(entry.get_entry_text())
-
-            self.plot_routemap(route)"""
-            NetworkInterface(self.config, self.storage).run()
+        try:
+            if self.use_editor:
+                EditorApplication(self.storage, self.config).run()
+            elif self.as_client:
+                ClientNetworkInterface(self.config, self.storage).run()
+            else:
+                """planner = RoutePlanner(self.storage)
+    
+                from_pos = Position(87, -220)
+                to_pos = Position(12177, -256)
+                route = planner.plan_route(from_pos, to_pos)
+    
+                for entry in route.get_entries():
+                    print(entry.get_entry_text())
+    
+                self.plot_routemap(route)"""
+                ServerNetworkInterface(self.config, self.storage).run()
+        except Exception as _e:
+            self.logger.add_entry(LogEntry.create(LogLevel.Fatal, traceback.format_exc()))
+            raise _e
 
     def plot_routemap(self, planned_route):
         fig, ax = plt.subplots()
