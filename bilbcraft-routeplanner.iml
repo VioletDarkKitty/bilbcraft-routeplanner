@@ -2,8 +2,15 @@
 <module type="PYTHON_MODULE" version="4">
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
-    <content url="file://$MODULE_DIR$" />
-    <orderEntry type="jdk" jdkName="Python 3.9" jdkType="Python SDK" />
+    <content url="file://$MODULE_DIR$">
+      <excludeFolder url="file://$MODULE_DIR$/venv" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/inspectionProfiles" />
+      <excludeFolder url="file://$MODULE_DIR$/main.build" />
+      <excludeFolder url="file://$MODULE_DIR$/main.build/static_src" />
+      <excludeFolder url="file://$MODULE_DIR$/main.dist" />
+      <excludeFolder url="file://$MODULE_DIR$/main.onefile-build" />
+    </content>
+    <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
 </module>

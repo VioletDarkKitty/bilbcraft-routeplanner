@@ -1,0 +1,8 @@
+mgzip~=0.2.1
+PySide6~=6.2.4
+pip~=20.0.2
+keyring~=18.0.1
+setuptools~=45.2.0
+matplotlib~=3.6.2
+numpy~=1.24.1
+pycallgraph~=1.0.1

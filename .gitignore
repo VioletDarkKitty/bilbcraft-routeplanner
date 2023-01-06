@@ -8,3 +8,6 @@ main.dist/*
 pycallgraph.png
 /output.png
 /venv/
+/main.build/
+/main.dist/
+/main.onefile-build/
