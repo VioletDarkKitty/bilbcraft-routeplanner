@@ -1016,13 +1016,13 @@
         },
         {
             "locations": [
-                "pridehaven-hq",
-                "pridehaven-market"
+                "pridehaven-market",
+                "pridehaven-hq"
             ],
             "weight": 0,
             "is_train": true,
             "label": "Orange Line",
-            "description": ""
+            "description": "Towards Buttercup"
         },
         {
             "locations": [
@@ -1096,13 +1096,13 @@
         },
         {
             "locations": [
-                "pridehaven-bilbo",
-                "pridehaven-market"
+                "pridehaven-market",
+                "pridehaven-bilbo"
             ],
             "weight": 0,
             "is_train": true,
             "label": "Orange Line",
-            "description": ""
+            "description": "Towards Amy Beach"
         },
         {
             "locations": [

@@ -1,8 +1,14 @@
+import datetime
 import heapq
 import math
+import typing
 
 from src.Location import Position
 from src.StorageProvider import StorageProvider
+
+
+class AStarTimelimitException(Exception):
+    pass
 
 
 class AStarPosition:
@@ -16,7 +22,7 @@ class AStar:
         self.storage = storage
         self.heuristic_distance_threshold = 2000
 
-    def get_path_to(self, start_pos: Position, end_pos: Position):
+    def get_path_to(self, start_pos: Position, end_pos: Position, timelimit_ms: typing.Optional[int]):
         node_heap = []
         heapq.heappush(node_heap, (0, start_pos.get_pos()))
         node_map = {
@@ -25,7 +31,12 @@ class AStar:
         costs = {
             start_pos.get_pos(): 0
         }
+        begin_time = datetime.datetime.now()
+        timelimit_seconds = timelimit_ms / 1000
         while not node_heap == []:
+            if timelimit_ms is not None and (datetime.datetime.now() - begin_time).total_seconds() > timelimit_seconds:
+                raise AStarTimelimitException()
+
             current = heapq.heappop(node_heap)[1]
 
             if current == end_pos.get_pos():

@@ -5,7 +5,7 @@ from json import JSONDecodeError
 
 from src.Config import Config, ConfigKeys, ConfigDataKeys
 from src.Location import Position
-from src.RoutePlanner import RoutePlanner
+from src.RoutePlanner import RoutePlanner, RouteTimeoutException
 from src.StorageProvider import StorageProvider
 
 
@@ -45,11 +45,17 @@ class NetworkProtocol(asyncio.Protocol):
                 pos1 = Position(json_data["x1"], json_data["y1"])
                 pos2 = Position(json_data["x2"], json_data["y2"])
 
-                route = self.interface.planner.plan_route(pos1, pos2)
-                data = []
-                for entry in route.get_entries():
-                    data.append(entry.get_entry_text())
-                self.transport.write(json.dumps(data).encode())
+                timeout_ms = json_data["timeout"] if "timeout" in json_data.keys() else None
+                try:
+                    route = self.interface.planner.plan_route(pos1, pos2, timeout_ms)
+                    data = []
+                    for entry in route.get_entries():
+                        data.append(entry)
+                    self.transport.write(json.dumps(data).encode())
+                except RouteTimeoutException:
+                    self.transport.write(json.dumps({
+                        "error": "timeout"
+                    }).encode())
             else:
                 self.report_invalid()
         else:
@@ -92,6 +98,41 @@ class ClientNetworkProtocol(asyncio.Protocol):
 
     def data_received(self, data):
         print('Data received: {!r}'.format(data.decode()))
+        print(self._route_json_to_list(json.loads(data.decode())))
+
+    @staticmethod
+    def _location_formatter(data):
+        if data["location"] is None:
+            return data["position"]
+        return "{} {}".format(data["location"]["label"], data["location"]["position"])
+
+    @staticmethod
+    def _connection_formatter(data):
+        return "{}, {}".format(data["label"], data["description"])
+
+    def _route_json_to_list(self, data):
+        formatted = []
+        for route in data:
+            if route["type"] == "board_train":
+                formatted.append("Board the {}".format(self._connection_formatter(route["from"]["connection"])))
+            elif route["type"] == "leave_train":
+                formatted.append(
+                    "Travel {} stops to {} and leave the train".format(route["to"]["num_stops"],
+                                                                       self._location_formatter(route["to"])))
+            elif route["type"] == "change_train":
+                formatted.append("Travel {} stops and change trains at {} and take the {}".format(
+                    route["to"]["num_stops"],
+                    self._location_formatter(route["to"]),
+                    self._connection_formatter(route["to"]["connection"])
+                ))
+            elif route["type"] in ["enter_street", "change_street", "walk"]:
+                formatted.append("Walk {} blocks from {} to {}".format(
+                    route["distance"],
+                    self._location_formatter(route["from"]),
+                    self._location_formatter(route["to"])
+                ))
+
+        return '\n'.join(formatted)
 
     def connection_lost(self, exc):
         print('The server closed the connection')
@@ -122,7 +163,8 @@ class ClientNetworkInterface:
             "x1": self.x1,
             "y1": self.y1,
             "x2": self.x2,
-            "y2": self.y2
+            "y2": self.y2,
+            "timeout": 100_000
         }
         message = json.dumps(data)
 
@@ -134,18 +176,21 @@ class ClientNetworkInterface:
         finally:
             transport.close()
 
-    def get_position(self, message):
+    def get_position(self, message, default=None):
         match = None
         while match is None:
-            input_data = input(message)
+            input_data = input(message.format("(default {})".format(default)))
+            if input_data == "" and default is not None:
+                print("(default)")
+                return default
             match = self.tuple_re.match(input_data)
         return int(match.group(1)), int(match.group(2))
 
     def run(self):
-        start_pos = self.get_position("Start position x,y: ")
+        start_pos = self.get_position("Start position x,y {}: ", default=(87, -220))
         self.x1 = start_pos[0]
         self.y1 = start_pos[1]
-        end_pos = self.get_position("End position x,y: ")
+        end_pos = self.get_position("End position x,y {}: ", default=(12177, -256))
         self.x2 = end_pos[0]
         self.y2 = end_pos[1]
 

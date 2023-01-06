@@ -1,10 +1,24 @@
 import typing
 from enum import Enum
 
-from src.AStar import AStar, AStarPosition
-from src.Location import Position
-from src.Route import Route, RouteEntry
+from src.AStar import AStar, AStarPosition, AStarTimelimitException
+from src.Location import Position, Location
 from src.StorageProvider import StorageProvider
+
+
+class Route:
+    def __init__(self):
+        self.entries = []
+
+    def add_entry(self, entry):
+        self.entries.append(entry)
+
+    def get_entries(self):
+        return self.entries
+
+
+class RouteTimeoutException(Exception):
+    pass
 
 
 class RouteConnectionChanges(Enum):
@@ -16,13 +30,67 @@ class RouteConnectionChanges(Enum):
 
 
 class RoutePath:
+    _cls_route_connection_changes_name_map = {
+        RouteConnectionChanges.BoardTrain: "board_train",
+        RouteConnectionChanges.LeaveTrain: "leave_train",
+        RouteConnectionChanges.ChangeTrain: "change_train",
+        RouteConnectionChanges.EnterStreet: "enter_street",
+        RouteConnectionChanges.ChangeStreet: "change_street"
+    }
+
     def __init__(self, from_position: AStarPosition, to_position: AStarPosition,
-                 route_change: typing.Optional[RouteConnectionChanges], storage: StorageProvider, stops: []):
+                 route_change: typing.Optional[RouteConnectionChanges], storage: StorageProvider,
+                 stops: [AStarPosition]):
         self.from_position = from_position
         self.to_position = to_position
         self.route_change = route_change
         self.storage = storage
-        self.train_ride_stops = stops
+        self.train_ride_stops: [AStarPosition] = stops
+
+    @staticmethod
+    def _make_location_dict(location: Location):
+        if location is None:
+            return None
+
+        data = {
+            "label": location.get_label(),
+            "position": location.get_pos()
+        }
+
+        return data
+
+    def _make_position_dict(self, position: AStarPosition):
+        data = {
+            "position": position.pos,
+            "location": self._make_location_dict(self.storage.get_location_at_pos(position.pos)),
+        }
+        if self.route_change in [RouteConnectionChanges.LeaveTrain, RouteConnectionChanges.ChangeTrain]:
+            data["num_stops"] = len(self.train_ride_stops) + 1
+            data["stops"] = [self._make_location_dict(self.storage.get_location_at_pos(x.pos))
+                             for x in self.train_ride_stops]
+
+        if self.route_change in [RouteConnectionChanges.BoardTrain, RouteConnectionChanges.ChangeTrain]:
+            data["connection"] = {
+                "label": position.connection.get_label(),
+                "description": position.connection.get_description()
+            }
+
+        return data
+
+    def to_dict(self) -> dict:
+        if self.route_change in RoutePath._cls_route_connection_changes_name_map.keys():
+            route_type = RoutePath._cls_route_connection_changes_name_map[self.route_change]
+        else:
+            route_type = "walk"
+
+        data = {
+            "type": route_type,
+            "from": self._make_position_dict(self.from_position),
+            "to": self._make_position_dict(self.to_position),
+            "distance": AStar.distance_between_points(self.from_position.pos, self.to_position.pos)
+        }
+
+        return data
 
     def write_route_text(self) -> str:
         from_location = self.storage.get_location_at_pos(self.from_position.pos)
@@ -58,15 +126,17 @@ class RoutePlanner:
     def __init__(self, storage: StorageProvider):
         self.storage = storage
 
-    def plan_route(self, from_location: Position, to_location: Position) -> Route:
+    def plan_route(self, from_location: Position, to_location: Position, timelimit_ms: typing.Optional[int]) -> Route:
         astar = AStar(self.storage)
-        path, cost = astar.get_path_to(from_location, to_location)
+        try:
+            path, cost = astar.get_path_to(from_location, to_location, timelimit_ms)
+        except AStarTimelimitException:
+            raise RouteTimeoutException()
 
         route_paths = self._make_paths_from_astar_points(path)
         route = Route()
         for path in route_paths:
-            route.add_entry(RouteEntry(path.write_route_text(), path.from_position.pos, path.to_position.pos,
-                                       path.get_train_ride_stops()))
+            route.add_entry(path.to_dict())
 
         return route
 

@@ -86,7 +86,7 @@ class StorageProvider(ABC):
         pass
 
     @abstractmethod
-    def get_location_at_pos(self, pos: Tuple[int, int]):
+    def get_location_at_pos(self, pos: Tuple[int, int]) -> Location:
         pass
 
     @abstractmethod
