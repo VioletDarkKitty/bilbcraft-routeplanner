@@ -11,3 +11,4 @@ pycallgraph.png
 /main.build/
 /main.dist/
 /main.onefile-build/
+/log.db

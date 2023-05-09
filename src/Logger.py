@@ -16,6 +16,13 @@ class LogLevel(Enum):
     Error = 1
     Fatal = 2
 
+    @classmethod
+    def from_name(cls, level):
+        for vs in LogLevel:
+            if vs.name == level:
+                return vs
+        return None
+
 
 class LogEntry:
     def __init__(self, entry_id: typing.Optional[int], timestamp: datetime.datetime, log_level: LogLevel, data: str):
@@ -37,6 +44,9 @@ class LogEntry:
     def get_text(self):
         return self.data
 
+    def get_id(self) -> int:
+        return self.entry_id
+
 
 class Logger(ABC):
     def __init__(self):
@@ -57,7 +67,7 @@ class Logger(ABC):
         pass
 
     @abstractmethod
-    def get_next_entry(self, entry_id):
+    def get_next_entry(self, entry_id) -> LogEntry:
         pass
 
     @abstractmethod
@@ -96,7 +106,16 @@ class DbLogger(Logger):
         print(self.format_log_entry(entry))
 
     def get_next_entry(self, entry_id):
-        pass
+        if entry_id is None:
+            res = self.cursor.execute("SELECT id, date, level, text FROM log_entries ORDER BY id LIMIT 1")
+        else:
+            res = self.cursor.execute("SELECT id, date, level, text FROM log_entries WHERE id > ? ORDER BY id LIMIT 1",
+                                      (entry_id, ))
+        entry_data = res.fetchone()
+        if entry_data is None:
+            return None
+
+        return LogEntry(entry_data[0], entry_data[1], LogLevel.from_name(entry_data[2]), entry_data[3])
 
     def get_prev_entry(self, entry_id):
         pass

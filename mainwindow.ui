@@ -83,6 +83,7 @@
      <string>File</string>
     </property>
     <addaction name="actionSave"/>
+    <addaction name="actionView_Log"/>
     <addaction name="actionQuit"/>
    </widget>
    <widget class="QMenu" name="menuEdit">
@@ -146,6 +147,11 @@
   <action name="actionBuild_Cache">
    <property name="text">
     <string>Build Cache</string>
+   </property>
+  </action>
+  <action name="actionView_Log">
+   <property name="text">
+    <string>View Log</string>
    </property>
   </action>
  </widget>

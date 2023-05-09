@@ -49,6 +49,9 @@ class StorageProvider(ABC):
         else:
             raise StorageException("Unknown storage type {}".format(provider_type))
 
+    def get_logger(self) -> Logger:
+        return self.logger
+
     @staticmethod
     def update_storage_version(self, old_version: typing.Optional[int], new_version: int):
         pass

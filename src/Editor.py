@@ -17,6 +17,7 @@ from src.ui_mainwindow import Ui_MainWindow
 from src.ui_editor_sidewindow import Ui_Form as EditorSideWindowForm
 from src.ui_editor_connection import Ui_Form as EditorConnectionForm
 from src.ui_editor_cachewindow import Ui_Form as EditorCacheForm
+from src.ui_editor_log_viewer import Ui_Form as EditorLogForm
 
 
 class CacheThreadWorker(QObject):
@@ -60,6 +61,8 @@ class MainWindow(QMainWindow):
         self.ui_cache_dialog_modal = None
         self.cache_worker = None
         self.cache_thread = None
+        self.log_form = None
+        self.ui_log_form_modal = None
 
         self.setWindowIcon(self.cra_icon)
         self.setup_signals()
@@ -71,6 +74,7 @@ class MainWindow(QMainWindow):
         self.ui.actionAddConnection.triggered.connect(self.on_add_connection)
         self.ui.actionBuild_Cache.triggered.connect(self.on_build_cache)
         self.ui.actionSave.triggered.connect(self.on_save)
+        self.ui.actionView_Log.triggered.connect(self.on_view_log)
 
     def init_storage_view(self):
         self.update_title()
@@ -413,6 +417,32 @@ class MainWindow(QMainWindow):
             self.ui.statusbar.showMessage("Deleted location {} and {} connections".format(
                 location.get_label(), num_connections
             ), 5000)
+
+    def on_view_log(self):
+        log_form = EditorLogForm()
+        self.log_form = log_form
+        widget = QWidget()
+        log_form.setupUi(widget)
+
+        logger = self.storage.get_logger()
+
+        current_entry_id = None
+        first = True
+        while current_entry_id is not None or first:
+            entry = logger.get_next_entry(current_entry_id)
+            if entry is None:
+                break
+            current_entry_id = entry.get_id()
+            self.log_form.log_list.addItem(QListWidgetItem(logger.format_log_entry(entry)))
+
+        dialog = QDialog()
+        self.ui_log_form_modal = dialog
+        dialog.children().append(widget)
+        widget.setParent(dialog)
+        dialog.setWindowModality(Qt.WindowModality.ApplicationModal)
+        dialog.setWindowTitle("Log")
+        dialog.show()
+        dialog.exec_()
 
     def on_build_cache(self):
         cache_form = EditorCacheForm()

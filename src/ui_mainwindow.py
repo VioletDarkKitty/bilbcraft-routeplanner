@@ -1,25 +1,17 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'mainwindowmQJobS.ui'
+## Form generated from reading UI file 'mainwindow.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.2.4
+## Created by: Qt User Interface Compiler version 6.0.2
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
 
-from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
-    QMetaObject, QObject, QPoint, QRect,
-    QSize, QTime, QUrl, Qt)
-from PySide6.QtGui import (QAction, QBrush, QColor, QConicalGradient,
-    QCursor, QFont, QFontDatabase, QGradient,
-    QIcon, QImage, QKeySequence, QLinearGradient,
-    QPainter, QPalette, QPixmap, QRadialGradient,
-    QTransform)
-from PySide6.QtWidgets import (QAbstractScrollArea, QApplication, QHBoxLayout, QHeaderView,
-    QMainWindow, QMenu, QMenuBar, QSizePolicy,
-    QSpacerItem, QStatusBar, QTreeWidget, QTreeWidgetItem,
-    QVBoxLayout, QWidget)
+from PySide6.QtCore import *
+from PySide6.QtGui import *
+from PySide6.QtWidgets import *
+
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -41,6 +33,8 @@ class Ui_MainWindow(object):
         self.actionAbout.setMenuRole(QAction.AboutRole)
         self.actionBuild_Cache = QAction(MainWindow)
         self.actionBuild_Cache.setObjectName(u"actionBuild_Cache")
+        self.actionView_Log = QAction(MainWindow)
+        self.actionView_Log.setObjectName(u"actionView_Log")
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.horizontalLayout_2 = QHBoxLayout(self.centralwidget)
@@ -92,6 +86,7 @@ class Ui_MainWindow(object):
         self.menubar.addAction(self.menuEdit.menuAction())
         self.menubar.addAction(self.menuHelp.menuAction())
         self.menuFile.addAction(self.actionSave)
+        self.menuFile.addAction(self.actionView_Log)
         self.menuFile.addAction(self.actionQuit)
         self.menuEdit.addAction(self.actionAddLocation)
         self.menuEdit.addAction(self.actionAddConnection)
@@ -118,6 +113,7 @@ class Ui_MainWindow(object):
         self.actionAddConnection.setText(QCoreApplication.translate("MainWindow", u"Add Connection", None))
         self.actionAbout.setText(QCoreApplication.translate("MainWindow", u"About", None))
         self.actionBuild_Cache.setText(QCoreApplication.translate("MainWindow", u"Build Cache", None))
+        self.actionView_Log.setText(QCoreApplication.translate("MainWindow", u"View Log", None))
         self.menuFile.setTitle(QCoreApplication.translate("MainWindow", u"File", None))
         self.menuEdit.setTitle(QCoreApplication.translate("MainWindow", u"Edit", None))
         self.menuHelp.setTitle(QCoreApplication.translate("MainWindow", u"Help", None))
